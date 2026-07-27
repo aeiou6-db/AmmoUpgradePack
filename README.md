@@ -1,4 +1,4 @@
-# a mod template for GHPC
+my persona ghpc mod template
 
 includes my ModUtils library
 
