@@ -1,4 +1,4 @@
-﻿using AmmoUpgrade;
+using AmmoUpgrade;
 using AmmoUpgradePack;
 using GHPC;
 using GHPC.Audio;
@@ -57,6 +57,7 @@ namespace AmmoUpgrade
             Leo1.Config(cfg);
             M1.Config(cfg);
             M60.Config(cfg);
+            T62.Config(cfg);
 
             module_manager.Add("SharedAssetz", new SharedAssetz());
             module_manager.Add("Shells", new Shells());
@@ -64,6 +65,7 @@ namespace AmmoUpgrade
             module_manager.Add("Leo1", new Leo1());
             module_manager.Add("M1", new M1());
             module_manager.Add("M60", new M60());
+            module_manager.Add("T62", new T62());
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
@@ -89,6 +91,7 @@ namespace AmmoUpgrade
                 Leo1.Init();
                 M1.Init();
                 M60.Init();
+                T62.Init();
                 valid_scene_count = 0;
             }
         }
