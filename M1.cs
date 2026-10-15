@@ -1,4 +1,4 @@
-﻿using AmmoUpgrade;
+using AmmoUpgrade;
 using GHPC;
 using GHPC.AI;
 using GHPC.AI.Targeting;
@@ -52,7 +52,7 @@ namespace AmmoUpgradePack
 
             GameObject vic_go = vic.gameObject;
 
-            if (vic.FriendlyName != "M1" && vic.FriendlyName != "M1IP") return;
+            if (vic.FriendlyName != "M1 Abrams" && vic.FriendlyName != "M1IP") return;
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
