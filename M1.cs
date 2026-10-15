@@ -1,4 +1,4 @@
-﻿using AmmoUpgrade;
+using AmmoUpgrade;
 using GHPC;
 using GHPC.AI;
 using GHPC.AI.Targeting;
