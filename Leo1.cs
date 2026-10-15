@@ -40,11 +40,11 @@ namespace AmmoUpgradePack
                 && vic.UniqueName != "LEO1A3A3"
                 && vic.UniqueName != "LEO1A4") 
                 return; // list of doom
+            if (dm33.Value == false) return;
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
             WeaponSystem main_gun = main_gun_info.Weapon;
-            if (main_gun_info.Name == "120mm Gun M256") return;
             loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm105_33;
             for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
             {
