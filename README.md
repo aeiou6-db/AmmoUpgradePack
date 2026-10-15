@@ -1,5 +1,12 @@
-my personal ghpc mod template
+ammo includes:
+LEOPARD 2s
+- DM33, DM53
 
-includes my ModUtils library
+M1/M1IP
+- M900
 
-meant to be used as a Visual Studio template
+M60s
+- M900
+
+LEOPARD 1
+- 105mm DM33
