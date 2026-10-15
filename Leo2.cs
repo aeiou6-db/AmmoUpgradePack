@@ -59,6 +59,7 @@ namespace AmmoUpgradePack
                 && vic.FriendlyName != "Leopard 2A2" 
                 && vic.FriendlyName != "Leopard 2A1"
                 && vic.FriendlyName != "Leopard 2") return;
+            if (leo2conversion.Value == false) return;
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];

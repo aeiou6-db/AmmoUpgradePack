@@ -29,6 +29,13 @@ namespace AmmoUpgradePack
         public static AmmoCodexScriptable ammo_codex_m900;
         public static AmmoType ammo_m900;
         public static GameObject ammo_m900_vis = null;
+
+        public static AmmoClipCodexScriptable clip_codex_3bm36;
+        public static AmmoType.AmmoClip clip_3bm36;
+        public static AmmoCodexScriptable ammo_codex_3bm36;
+        public static AmmoType ammo_3bm36;
+        public static GameObject ammo_3bm36_vis = null;
+
         public static AmmoClipCodexScriptable clip_codex_dm105_33;
         public static AmmoType.AmmoClip clip_dm105_33;
         public static AmmoCodexScriptable ammo_codex_dm105_33;
@@ -50,10 +57,10 @@ namespace AmmoUpgradePack
             ammo_dm33 = new AmmoType();
             Util.ShallowCopy(ammo_dm33, SharedAssetz.ammo_dm120);
             ammo_dm33.Name = "DM33 APFSDS-T";
-            ammo_dm33.RhaPenetration = 420;
+            ammo_dm33.RhaPenetration = 610;
             ammo_dm33.Caliber = 120;
             ammo_dm33.MuzzleVelocity = 1680;
-            ammo_dm33.SpallMultiplier = 1.5f;
+            ammo_dm33.SpallMultiplier = 2f;
             ammo_dm33.MaxSpallRha = 30;
             ammo_dm33.MinSpallRha = 8;
 
@@ -85,7 +92,7 @@ namespace AmmoUpgradePack
             ammo_dm53.RhaPenetration = 780;
             ammo_dm53.Caliber = 120;
             ammo_dm53.MuzzleVelocity = 1680;
-            ammo_dm53.SpallMultiplier = 1.5f;
+            ammo_dm53.Mass = 8.35f; 
             ammo_dm53.MaxSpallRha = 30;
             ammo_dm53.MinSpallRha = 8;
 
@@ -115,6 +122,8 @@ namespace AmmoUpgradePack
             ammo_m900.RhaPenetration = 650;
             ammo_m900.Caliber = 105;
             ammo_m900.MuzzleVelocity = 1505;
+            ammo_m900.Mass = 6.86f;
+            ammo_m900.SpallMultiplier = 1f;
 
             Util.Coalesce(ref ammo_codex_m900);
             ammo_codex_m900.AmmoType = ammo_m900;
@@ -140,13 +149,17 @@ namespace AmmoUpgradePack
             ammo_dm105_33 = new AmmoType();
             Util.ShallowCopy(ammo_dm105_33, SharedAssetz.ammo_dm105);
             ammo_dm105_33.Name = "DM33 APFSDS-T";
-            ammo_dm105_33.RhaPenetration = 420;
+            ammo_dm105_33.RhaPenetration = 435;
             ammo_dm105_33.Caliber = 105;
             ammo_dm105_33.MuzzleVelocity = 1450;
+            ammo_dm105_33.Mass = 4.1f;
+            ammo_dm105_33.MaxSpallRha = 20;
+            ammo_dm105_33.MinSpallRha = 2;
+            ammo_dm105_33.Coeff = 0.195f;
 
             Util.Coalesce(ref ammo_codex_dm105_33);
             ammo_codex_dm105_33.AmmoType = ammo_dm105_33;
-            ammo_codex_dm105_33.name = "ammo_dm105_33";
+            ammo_codex_dm105_33.name = "ammo_dm_105_33";
 
             clip_dm105_33 = new AmmoType.AmmoClip();
             clip_dm105_33.Capacity = 1;
@@ -155,7 +168,7 @@ namespace AmmoUpgradePack
             clip_dm105_33.MinimalPattern[0] = ammo_codex_dm105_33;
 
             Util.Coalesce(ref clip_codex_dm105_33);
-            clip_codex_dm105_33.name = "clip_dm105_33";
+            clip_codex_dm105_33.name = "clip_dm_105_33";
             clip_codex_dm105_33.ClipType = clip_dm105_33;
 
             ammo_dm105_33_vis = GameObject.Instantiate(SharedAssetz.ammo_dm105.VisualModel);
@@ -163,6 +176,35 @@ namespace AmmoUpgradePack
             ammo_dm105_33.VisualModel = ammo_dm105_33_vis;
             ammo_dm105_33.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_dm105_33;
             ammo_dm105_33.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_dm105_33;
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_3bm36 = new AmmoType();
+            Util.ShallowCopy(ammo_3bm36, SharedAssetz.ammo_3bm32);
+            ammo_3bm36.Name = "3BM36 APFSDS-T";
+            ammo_3bm36.RhaPenetration = 520;
+            ammo_3bm36.Caliber = 115;
+            ammo_3bm36.MuzzleVelocity = 1650;
+            ammo_3bm36.SpallMultiplier = 0.7f;
+
+            Util.Coalesce(ref ammo_codex_3bm36);
+            ammo_codex_3bm36.AmmoType = ammo_3bm36;
+            ammo_codex_3bm36.name = "ammo_3bm36";
+
+            clip_3bm36 = new AmmoType.AmmoClip();
+            clip_3bm36.Capacity = 1;
+            clip_3bm36.Name = "3BM36 APFSDS-T";
+            clip_3bm36.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_3bm36.MinimalPattern[0] = ammo_codex_3bm36;
+
+            Util.Coalesce(ref clip_codex_3bm36);
+            clip_codex_3bm36.name = "clip_3bm36";
+            clip_codex_3bm36.ClipType = clip_3bm36;
+
+            ammo_3bm36_vis = GameObject.Instantiate(SharedAssetz.ammo_3bm32.VisualModel);
+            ammo_3bm36_vis.name = "3bm36 visual";
+            ammo_3bm36.VisualModel = ammo_3bm36_vis;
+            ammo_3bm36.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bm36;
+            ammo_3bm36.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_3bm36;
 
             ///////////////////////////////////////////////////////////////////////////////////////////////
 

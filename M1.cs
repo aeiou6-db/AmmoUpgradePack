@@ -49,10 +49,10 @@ namespace AmmoUpgradePack
         private static void HandleConversion(Vehicle vic)
         {
             if (vic == null) return;
-
             GameObject vic_go = vic.gameObject;
 
-            if (vic.FriendlyName != "M1" && vic.FriendlyName != "M1IP") return;
+            if (vic.FriendlyName != "M1 Abrams" && vic.FriendlyName != "M1IP") return;
+            if (M900.Value == false) return;
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];

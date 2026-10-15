@@ -57,6 +57,7 @@ namespace AmmoUpgradePack
                 && vic.UniqueName != "M60A1"
                 && vic.UniqueName != "M60A1RISEP")
                 return;
+            if (M900.Value == false) return;
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];

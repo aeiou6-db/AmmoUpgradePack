@@ -20,6 +20,8 @@ namespace AmmoUpgradePack
         internal static AmmoClipCodexScriptable codex_m833;
         internal static AmmoType ammo_m833;
 
+        internal static AmmoType ammo_3bm32;
+
         public override void LoadStaticAssets()
         {
             AssetUtil.LoadVanillaVehicle("LEO2A3");
@@ -29,6 +31,7 @@ namespace AmmoUpgradePack
             codex_dm120 = clip_codex_scriptables.Where(o => o.name == "clip_DM23(120)").FirstOrDefault();
             codex_dm105 = clip_codex_scriptables.Where(o => o.name == "clip_DM23(105)").FirstOrDefault();
             codex_m833 = clip_codex_scriptables.Where(o => o.name == "clip_M833").FirstOrDefault();
+            ammo_3bm32 = codex_scriptables.Where(o => o.name == "ammo_3BM32").FirstOrDefault().AmmoType;
             ammo_dm120 = codex_dm120.ClipType.MinimalPattern[0].AmmoType;
             ammo_dm105 = codex_dm105.ClipType.MinimalPattern[0].AmmoType;
             ammo_m833 = codex_m833.ClipType.MinimalPattern[0].AmmoType;

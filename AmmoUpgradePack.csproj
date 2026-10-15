@@ -107,6 +107,7 @@
     <Compile Include="ModUtil\VehicleModule.cs" />
     <Compile Include="SharedAssetz.cs" />
     <Compile Include="shells.cs" />
+    <Compile Include="T62.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
