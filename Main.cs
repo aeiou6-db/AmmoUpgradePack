@@ -1,4 +1,4 @@
-﻿using AmmoUpgrade;
+using AmmoUpgrade;
 using AmmoUpgradePack;
 using GHPC;
 using GHPC.Audio;
