@@ -1,4 +1,4 @@
-﻿using GHPC.Weaponry;
+using GHPC.Weaponry;
 using GHPC.Weapons;
 using ModUtil;
 using System;
@@ -29,6 +29,7 @@ namespace AmmoUpgradePack
         public static AmmoCodexScriptable ammo_codex_m900;
         public static AmmoType ammo_m900;
         public static GameObject ammo_m900_vis = null;
+
         public static AmmoClipCodexScriptable clip_codex_dm105_33;
         public static AmmoType.AmmoClip clip_dm105_33;
         public static AmmoCodexScriptable ammo_codex_dm105_33;
@@ -50,7 +51,7 @@ namespace AmmoUpgradePack
             ammo_dm33 = new AmmoType();
             Util.ShallowCopy(ammo_dm33, SharedAssetz.ammo_dm120);
             ammo_dm33.Name = "DM33 APFSDS-T";
-            ammo_dm33.RhaPenetration = 420;
+            ammo_dm33.RhaPenetration = 610;
             ammo_dm33.Caliber = 120;
             ammo_dm33.MuzzleVelocity = 1680;
             ammo_dm33.SpallMultiplier = 1.5f;
@@ -59,7 +60,7 @@ namespace AmmoUpgradePack
 
             Util.Coalesce(ref ammo_codex_dm33);
             ammo_codex_dm33.AmmoType = ammo_dm33;
-            ammo_codex_dm33.name = "ammo_dm33";
+            ammo_codex_dm33.name = "ammo_dm33(120)";
 
             clip_dm33 = new AmmoType.AmmoClip();
             clip_dm33.Capacity = 1;
@@ -68,7 +69,7 @@ namespace AmmoUpgradePack
             clip_dm33.MinimalPattern[0] = ammo_codex_dm33;
 
             Util.Coalesce(ref clip_codex_dm33);
-            clip_codex_dm33.name = "clip_dm33";
+            clip_codex_dm33.name = "clip_dm33(120)";
             clip_codex_dm33.ClipType = clip_dm33;
 
             ammo_dm33_vis = GameObject.Instantiate(SharedAssetz.ammo_dm120.VisualModel);
@@ -91,7 +92,7 @@ namespace AmmoUpgradePack
 
             Util.Coalesce(ref ammo_codex_dm53);
             ammo_codex_dm53.AmmoType = ammo_dm53;
-            ammo_codex_dm53.name = "ammo_dm53";
+            ammo_codex_dm53.name = "ammo_dm53(120)";
 
             clip_dm53 = new AmmoType.AmmoClip();
             clip_dm53.Capacity = 1;
@@ -100,7 +101,7 @@ namespace AmmoUpgradePack
             clip_dm53.MinimalPattern[0] = ammo_codex_dm53;
 
             Util.Coalesce(ref clip_codex_dm53);
-            clip_codex_dm53.name = "clip_dm53";
+            clip_codex_dm53.name = "clip_dm53(120)";
             clip_codex_dm53.ClipType = clip_dm53;
 
             ammo_dm53_vis = GameObject.Instantiate(SharedAssetz.ammo_dm120.VisualModel);
@@ -115,6 +116,7 @@ namespace AmmoUpgradePack
             ammo_m900.RhaPenetration = 650;
             ammo_m900.Caliber = 105;
             ammo_m900.MuzzleVelocity = 1505;
+            ammo_m900.SpallMultiplier = 1.4f;
 
             Util.Coalesce(ref ammo_codex_m900);
             ammo_codex_m900.AmmoType = ammo_m900;
@@ -143,10 +145,14 @@ namespace AmmoUpgradePack
             ammo_dm105_33.RhaPenetration = 420;
             ammo_dm105_33.Caliber = 105;
             ammo_dm105_33.MuzzleVelocity = 1450;
+            ammo_dm105_33.SpallMultiplier = 1.2f;
+            ammo_dm105_33.MaxSpallRha = 20;
+            ammo_dm105_33.MinSpallRha = 2;
+            ammo_dm105_33.Coeff = 0.195f;
 
             Util.Coalesce(ref ammo_codex_dm105_33);
             ammo_codex_dm105_33.AmmoType = ammo_dm105_33;
-            ammo_codex_dm105_33.name = "ammo_dm105_33";
+            ammo_codex_dm105_33.name = "ammo_dm_105_33";
 
             clip_dm105_33 = new AmmoType.AmmoClip();
             clip_dm105_33.Capacity = 1;
@@ -155,7 +161,7 @@ namespace AmmoUpgradePack
             clip_dm105_33.MinimalPattern[0] = ammo_codex_dm105_33;
 
             Util.Coalesce(ref clip_codex_dm105_33);
-            clip_codex_dm105_33.name = "clip_dm105_33";
+            clip_codex_dm105_33.name = "clip_dm_105_33";
             clip_codex_dm105_33.ClipType = clip_dm105_33;
 
             ammo_dm105_33_vis = GameObject.Instantiate(SharedAssetz.ammo_dm105.VisualModel);
