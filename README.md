@@ -1,4 +1,11 @@
 Fairly self-explanatory
+As of Oct. 15 2026 is compatible with
+
+M1A1 Abrams
+
+PIL
+
+Fulda89
 
 ammo includes:
 LEOPARD 2s
