@@ -1,5 +1,6 @@
 Fairly self-explanatory
-As of Oct. 15 2026 is compatible with
+
+As of V1.1 is compatible with
 
 M1A1 Abrams
 
@@ -7,6 +8,9 @@ PIL
 
 Fulda89
 
+////////////////////////////////////////////////////////////////////////
+AMMO LIST
+////////////////////////////////////////////////////////////////////////
 ammo includes:
 LEOPARD 2s
 - DM33, DM53
@@ -19,3 +23,6 @@ M60s
 
 LEOPARD 1
 - 105mm DM33
+
+T-62
+ - 3BM36
