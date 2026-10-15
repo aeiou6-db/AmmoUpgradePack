@@ -181,7 +181,7 @@ namespace AmmoUpgradePack
             ammo_3bm36 = new AmmoType();
             Util.ShallowCopy(ammo_3bm36, SharedAssetz.ammo_3bm32);
             ammo_3bm36.Name = "3BM36 APFSDS-T";
-            ammo_3bm36.RhaPenetration = 520;
+            ammo_3bm36.RhaPenetration = 535;
             ammo_3bm36.Caliber = 115;
             ammo_3bm36.MuzzleVelocity = 1650;
             ammo_3bm36.SpallMultiplier = 0.7f;
@@ -200,7 +200,7 @@ namespace AmmoUpgradePack
             clip_codex_3bm36.name = "clip_3bm36";
             clip_codex_3bm36.ClipType = clip_3bm36;
 
-            ammo_3bm36_vis = GameObject.Instantiate(SharedAssetz.ammo_3bm32.VisualModel);
+            ammo_3bm36_vis = GameObject.Instantiate(SharedAssetz.ammo_3bm28.VisualModel);
             ammo_3bm36_vis.name = "3bm36 visual";
             ammo_3bm36.VisualModel = ammo_3bm36_vis;
             ammo_3bm36.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bm36;

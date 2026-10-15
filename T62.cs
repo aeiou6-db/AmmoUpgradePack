@@ -29,7 +29,7 @@ namespace AmmoUpgradePack
 
             GameObject vic_go = vic.gameObject;
 
-            if (vic.FriendlyName != "T-62") return;
+            if (vic.UniqueName != "T62") return;
             if (BM36.Value == false) return;
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
