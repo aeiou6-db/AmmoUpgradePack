@@ -4,6 +4,8 @@ using UnityEngine;
 using GHPC.Mission;
 using GHPC.Vehicle;
 using UnityEngine.AddressableAssets;
+using System.Collections;
+using GHPC.State;
 
 namespace ModUtil
 {
@@ -11,6 +13,22 @@ namespace ModUtil
     {
         private static UnitPrefabLookupScriptable.UnitPrefabMetadata[] lookup_all_units;
         private static List<AssetReference> loaded_asset_references = new List<AssetReference>();
+        private static List<AssetReference> temp_asset_references = new List<AssetReference>();
+
+        internal static void TempLoadVanillaVehicle(string name)
+        {
+            if (lookup_all_units == null)
+            {
+                lookup_all_units = Resources.FindObjectsOfTypeAll<UnitPrefabLookupScriptable>().FirstOrDefault().AllUnits;
+            }
+            AssetReference prefab_ref = lookup_all_units.Where(o => o.Name == name).FirstOrDefault().PrefabReference;
+
+            if (prefab_ref.Asset == null)
+            {
+                temp_asset_references.Add(prefab_ref);
+                prefab_ref.LoadAssetAsync<GameObject>().WaitForCompletion();
+            }
+        }
 
         internal static Vehicle LoadVanillaVehicle(string name)
         {
@@ -29,14 +47,21 @@ namespace ModUtil
             return (prefab_ref.Asset as GameObject).GetComponent<Vehicle>();
         }
 
+
+        internal static void ReleaseTempVanillaAssets()
+        {
+            ReleaseAssets(temp_asset_references, true);
+        }
+
         internal static void ReleaseVanillaAssets()
         {
-            foreach (AssetReference prefab in loaded_asset_references)
-            {
-                prefab.ReleaseAsset();
-            }
+            ReleaseAssets(loaded_asset_references);
+        }
 
-            loaded_asset_references.Clear();
+        internal static IEnumerator ReleaseTempVanillaAssetsDeferred(GameState _)
+        {
+            ReleaseTempVanillaAssets();
+            yield break;
         }
 
         internal static bool VehicleInMission(string name)
@@ -75,6 +100,20 @@ namespace ModUtil
         private static void CloneVanillaMaterial(ref Material dest, Material source)
         {
             dest = new Material(source);
+        }
+
+        private static void ReleaseAssets(List<AssetReference> asset_references, bool hard_destroy = false)
+        {
+            foreach (AssetReference prefab in asset_references)
+            {
+                if (hard_destroy)
+                {
+                    GameObject.DestroyImmediate(prefab.Asset);
+                }
+                prefab.ReleaseAsset();
+            }
+
+            asset_references.Clear();
         }
     }
 }

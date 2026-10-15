@@ -12,7 +12,7 @@ namespace ModUtil
 {
     public sealed class AlreadyConverted : MonoBehaviour
     {
-        void Awake() 
+        void Awake()
         {
             enabled = false;
         }
@@ -29,6 +29,14 @@ namespace ModUtil
             "LOADER_INITIAL",
             "t64_menu"
         };
+        public static AmmoType.ArmorOptimization CreateArmourOptimization(ArmorCodexScriptable codex, float ratio)
+        {
+            return new AmmoType.ArmorOptimization()
+            {
+                Armor = codex,
+                RhaRatio = ratio
+            };
+        }
 
         public static void CacheAmmo(AmmoType ammo)
         {
@@ -43,7 +51,8 @@ namespace ModUtil
             ammo.CachedIndex = id;
         }
 
-        public static void CreateUniformArmour(GameObject go, string name, float rha_sabot, float rha_heat, ArmorCodexScriptable codex = null) {
+        public static void CreateUniformArmour(GameObject go, string name, float rha_sabot, float rha_heat, ArmorCodexScriptable codex = null)
+        {
             UniformArmor component = go.AddComponent<UniformArmor>();
             go.tag = "Penetrable";
             go.layer = 8;
@@ -51,7 +60,8 @@ namespace ModUtil
             component.PrimaryHeatRha = rha_heat;
             component.PrimarySabotRha = rha_sabot;
 
-            if (codex != null) {
+            if (codex != null)
+            {
                 component._armorType = codex;
             }
         }
@@ -89,7 +99,6 @@ namespace ModUtil
             src.heat = 0.4f;
         }
 
-        // https://snipplr.com/view/75285/clone-from-one-object-to-another-using-reflection
         public static void ShallowCopy(System.Object dest, System.Object src)
         {
             BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
