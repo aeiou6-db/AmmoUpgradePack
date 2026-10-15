@@ -1,3 +1,5 @@
+Fairly self-explanatory
+
 ammo includes:
 LEOPARD 2s
 - DM33, DM53
