@@ -1,6 +1,6 @@
 Fairly self-explanatory
 
-As of V1.1 is compatible with
+As of V1.1B is compatible with
 
 M1A1 Abrams
 
