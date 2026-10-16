@@ -66,6 +66,7 @@ namespace AmmoUpgrade
             module_manager.Add("M1", new M1());
             module_manager.Add("M60", new M60());
             module_manager.Add("T62", new T62());
+            MelonLogger.Msg("Completed Intial loading");
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
@@ -77,8 +78,11 @@ namespace AmmoUpgrade
                 sceneName == "t64_menu" ||
                 sceneName == "leo2_menu")
             {
+                MelonLogger.Msg("Loading Static Assets");
                 module_manager.LoadAllStaticAssets();
+                MelonLogger.Msg("Releasing Vanilla Assets");
                 AssetUtil.ReleaseVanillaAssets();
+                MelonLogger.Msg("Done");
             }
             if (Util.menu_screens.Contains(sceneName)) return;
 

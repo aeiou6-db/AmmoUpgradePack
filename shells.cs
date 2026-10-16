@@ -4,13 +4,14 @@ using ModUtil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
 namespace AmmoUpgradePack
 {
-    public class Shells : Module
+    public class Shells : ModUtil.Module
     {
         public static AmmoClipCodexScriptable clip_codex_dm33;
         public static AmmoType.AmmoClip clip_dm33;
@@ -51,8 +52,19 @@ namespace AmmoUpgradePack
             GameObject.DestroyImmediate(ammo_m900_vis);
             GameObject.DestroyImmediate(ammo_dm105_33_vis);
         }
+
         public override void LoadDynamicAssets()
         {
+            // optimization defining // 
+            string era_schema = Assembly.CreateQualifiedName("PactIncreasedLethality", "PactIncreasedLethality.EraSchema");
+            string k5 = Assembly.CreateQualifiedName("PactIncreasedLethality", "PactIncreasedLethality.Kontakt5");
+            string relikt = Assembly.CreateQualifiedName("PactIncreasedLethality", "PactIncreasedLethality.Relikt");
+            Type era_schema_type = Type.GetType(era_schema);
+            Type k5_type = Type.GetType(k5);
+            Type relikt_type = Type.GetType(relikt);
+
+            // actual shells // 
+
             //
             ammo_dm33 = new AmmoType();
             Util.ShallowCopy(ammo_dm33, SharedAssetz.ammo_dm120);
@@ -205,7 +217,26 @@ namespace AmmoUpgradePack
             ammo_3bm36.VisualModel = ammo_3bm36_vis;
             ammo_3bm36.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bm36;
             ammo_3bm36.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_3bm36;
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            // anti Era Optimizations //
+            if (k5_type != null)
+            {
+                BindingFlags flags = BindingFlags.Static | BindingFlags.Public;
+                FieldInfo era_schema_so = era_schema_type.GetField("era_so", BindingFlags.Public | BindingFlags.Instance);
+                Func<Type, ArmorCodexScriptable> get_codex = type => (ArmorCodexScriptable)era_schema_so.GetValue(type.GetField("schema", flags).GetValue(null));
 
+                ammo_dm53.ArmorOptimizations = new AmmoType.ArmorOptimization[] {
+                    new AmmoType.ArmorOptimization() {
+                        Armor = get_codex(k5_type),
+                        RhaRatio = 0.3f
+                    },
+
+                    new AmmoType.ArmorOptimization() {
+                        Armor = get_codex(relikt_type),
+                        RhaRatio = 0.4f
+                    }
+                };
+            }
             ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
