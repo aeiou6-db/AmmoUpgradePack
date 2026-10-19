@@ -19,7 +19,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.1", "Aeiou6")]
+[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.1B", "Aeiou6")]
 [assembly: MelonGame("Radian Simulations LLC", "GHPC")]
 
 namespace AmmoUpgrade
@@ -58,6 +58,10 @@ namespace AmmoUpgrade
             M1.Config(cfg);
             M60.Config(cfg);
             T62.Config(cfg);
+            T72.Config(cfg);
+            T80.Config(cfg);
+            T64A.Config(cfg);
+            T64B.Config(cfg);
 
             module_manager.Add("SharedAssetz", new SharedAssetz());
             module_manager.Add("Shells", new Shells());
@@ -66,6 +70,10 @@ namespace AmmoUpgrade
             module_manager.Add("M1", new M1());
             module_manager.Add("M60", new M60());
             module_manager.Add("T62", new T62());
+            module_manager.Add("T72", new T72());
+            module_manager.Add("T80", new T80());
+            module_manager.Add("T64A", new T64A());
+            module_manager.Add("T64B", new T64B());
             MelonLogger.Msg("Completed Intial loading");
         }
 
@@ -91,11 +99,16 @@ namespace AmmoUpgrade
             {
                 StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(AssetUtil.ReleaseTempVanillaAssetsDeferred), GameStatePriority.Medium);
                 StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(OnPlayerReady), GameStatePriority.Medium);
+                StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Shells.TandemOptimization), GameStatePriority.Lowest);
                 Leo2.Init();
                 Leo1.Init();
                 M1.Init();
                 M60.Init();
                 T62.Init();
+                T72.Init();
+                T80.Init();
+                T64A.Init();
+                T64B.Init();
                 valid_scene_count = 0;
             }
         }

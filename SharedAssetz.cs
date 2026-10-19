@@ -16,12 +16,11 @@ namespace AmmoUpgradePack
         internal static AmmoType ammo_dm120;
         internal static AmmoClipCodexScriptable codex_dm120;
         internal static AmmoType ammo_dm105;
+        internal static AmmoType ammo_3bk18m;
         internal static AmmoClipCodexScriptable codex_dm105;
         internal static AmmoClipCodexScriptable codex_m833;
         internal static AmmoType ammo_m833;
-
         internal static AmmoType ammo_3bm32;
-
         internal static AmmoType ammo_3bm28;
 
         public override void LoadStaticAssets()
@@ -36,6 +35,7 @@ namespace AmmoUpgradePack
             codex_m833 = clip_codex_scriptables.Where(o => o.name == "clip_M833").FirstOrDefault();
             ammo_3bm32 = codex_scriptables.Where(o => o.name == "ammo_3BM32").FirstOrDefault().AmmoType;
             ammo_3bm28 = codex_scriptables.Where(o => o.name == "ammo_3BM28").FirstOrDefault().AmmoType;
+            ammo_3bk18m = codex_scriptables.Where(o => o.name == "ammo_3BK18M").FirstOrDefault().AmmoType;
             ammo_dm120 = codex_dm120.ClipType.MinimalPattern[0].AmmoType;
             ammo_dm105 = codex_dm105.ClipType.MinimalPattern[0].AmmoType;
             ammo_m833 = codex_m833.ClipType.MinimalPattern[0].AmmoType;

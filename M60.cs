@@ -16,6 +16,7 @@ using GHPC.Utility;
 using GHPC.Vehicle;
 using GHPC.Weaponry;
 using GHPC.Weapons;
+using Harmony;
 using HarmonyLib;
 using MelonLoader;
 using MelonLoader.Utils;
@@ -41,6 +42,7 @@ namespace AmmoUpgradePack
     public class M60 : ModUtil.Module
     {
         static MelonPreferences_Entry<bool> M900;
+
         public static void Config(MelonPreferences_Category cfg)
         {
             M900 = cfg.CreateEntry<bool>("(M60) M900 APFSDS-T", true);
@@ -58,6 +60,7 @@ namespace AmmoUpgradePack
                 && vic.UniqueName != "M60A1RISEP")
                 return;
             if (M900.Value == false) return;
+            MelonLogger.Msg("M60 FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];

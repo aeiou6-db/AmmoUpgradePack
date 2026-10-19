@@ -16,11 +16,15 @@ namespace AmmoUpgradePack
 {
     public class Leo1 : ModUtil.Module
     {
-        static MelonPreferences_Entry<bool> dm33;
+        static MelonPreferences_Entry<bool> patch;
+        static MelonPreferences_Entry<string> ammo_ap;
         public static void Config(MelonPreferences_Category cfg)
         {
-            dm33 = cfg.CreateEntry<bool>("(LEOPARD 1) DM33 APFSDS-T", true);
-            dm33.Comment = "Adds 105mm DM33 to the Leopard 1s";
+            patch = cfg.CreateEntry<bool>("Leopard 1 Ammo Upgrade Toggle", true);
+            patch.Comment = "///////////////////////////////";
+
+            ammo_ap = cfg.CreateEntry<string>("(LEOPARD 1) AP Ammo", "DM33");
+            ammo_ap.Comment = "DM33, DM63"; 
         }
         private static void HandleConversion(Vehicle vic)
         {
@@ -39,13 +43,20 @@ namespace AmmoUpgradePack
                 && vic.UniqueName != "LEO1A3A2"
                 && vic.UniqueName != "LEO1A3A3"
                 && vic.UniqueName != "LEO1A4") 
-                return; // list of doom
-            if (dm33.Value == false) return;
+                return; // list of doom holy shit
+            MelonLogger.Msg("LEO1 FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
             WeaponSystem main_gun = main_gun_info.Weapon;
-            loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm105_33;
+            if (ammo_ap.Value == "DM33")
+            {
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm105_33;
+            }
+            if (ammo_ap.Value == "DM63")
+            {
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm105_63;
+            }
             for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
             {
                 GHPC.Weapons.AmmoRack rack = loadout_manager.RackLoadouts[i].Rack;

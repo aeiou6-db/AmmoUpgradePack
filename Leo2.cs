@@ -40,11 +40,13 @@ namespace AmmoUpgradePack
 {
     public class Leo2 : ModUtil.Module
     {
-        static MelonPreferences_Entry<string> ammo_ap;
-        static MelonPreferences_Entry<bool> leo2conversion;
+        public static MelonPreferences_Entry<string> ammo_ap;
+        public static MelonPreferences_Entry<bool> patch;
         public static void Config(MelonPreferences_Category cfg)
         {
-            leo2conversion = cfg.CreateEntry<bool>("Leopard 2 Ammo Upgrade Toggle", true);
+            patch = cfg.CreateEntry<bool>("Leopard 2 Ammo Upgrade Toggle", true);
+            patch.Comment = "///////////////////////////////";
+
             ammo_ap = cfg.CreateEntry<string>("AP Ammo", "DM33");
             ammo_ap.Comment = "DM23, DM33, DM53";
         }
@@ -55,19 +57,29 @@ namespace AmmoUpgradePack
 
             GameObject vic_go = vic.gameObject;
 
-            if (vic.FriendlyName != "Leopard 2A3" 
-                && vic.FriendlyName != "Leopard 2A2" 
+            if (vic.FriendlyName != "Leopard 2A3"
+                && vic.FriendlyName != "Leopard 2A2"
                 && vic.FriendlyName != "Leopard 2A1"
-                && vic.FriendlyName != "Leopard 2") return;
-            if (leo2conversion.Value == false) return;
+                && vic.FriendlyName != "Leopard 2"
+                && vic.UniqueName != "LEO2A4") return;
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
             WeaponSystem main_gun = main_gun_info.Weapon;
 
             string ammostr = ammo_ap.Value;
-
-            loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.leoap[ammostr];
+            if (ammostr == "DM53")
+            {
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm53;
+            }
+            if (ammostr == "DM33")
+            {
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm33;
+            }
+            if (ammostr == "DM23")
+            {
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = SharedAssetz.codex_dm120;
+            }
             for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
             {
                 GHPC.Weapons.AmmoRack rack = loadout_manager.RackLoadouts[i].Rack;
@@ -90,7 +102,7 @@ namespace AmmoUpgradePack
 
         public static void Init()
         {
-            if (!leo2conversion.Value) return;
+            if (!patch.Value) return;
             StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(Convert), GameStatePriority.Medium);
         }
     }

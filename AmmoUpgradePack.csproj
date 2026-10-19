@@ -108,6 +108,10 @@
     <Compile Include="SharedAssetz.cs" />
     <Compile Include="shells.cs" />
     <Compile Include="T62.cs" />
+    <Compile Include="T64B.cs" />
+    <Compile Include="T64A.cs" />
+    <Compile Include="T80.cs" />
+    <Compile Include="T72.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

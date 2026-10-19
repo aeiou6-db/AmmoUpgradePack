@@ -16,6 +16,7 @@ using GHPC.Utility;
 using GHPC.Vehicle;
 using GHPC.Weaponry;
 using GHPC.Weapons;
+using Harmony;
 using HarmonyLib;
 using MelonLoader;
 using MelonLoader.Utils;
@@ -53,6 +54,7 @@ namespace AmmoUpgradePack
 
             if (vic.FriendlyName != "M1 Abrams" && vic.FriendlyName != "M1IP") return;
             if (M900.Value == false) return;
+            MelonLogger.Msg("M1/M1IP FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];

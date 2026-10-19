@@ -20,6 +20,7 @@ namespace AmmoUpgradePack
         static MelonPreferences_Entry<bool> BM36;
         public static void Config(MelonPreferences_Category cfg)
         {
+
             BM36 = cfg.CreateEntry<bool>("(T-62) 3BM36 APFSDS-T", true);
             BM36.Comment = "effectively 3BM32 Vant for the T-62";
         }
@@ -31,6 +32,7 @@ namespace AmmoUpgradePack
 
             if (vic.UniqueName != "T62") return;
             if (BM36.Value == false) return;
+            MelonLogger.Msg("T62 FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];

@@ -1,7 +1,9 @@
+using GHPC.State;
 using GHPC.Weaponry;
 using GHPC.Weapons;
 using ModUtil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -37,13 +39,29 @@ namespace AmmoUpgradePack
         public static AmmoType ammo_3bm36;
         public static GameObject ammo_3bm36_vis = null;
 
+        public static AmmoClipCodexScriptable clip_codex_3bm59;
+        public static AmmoType.AmmoClip clip_3bm59;
+        public static AmmoCodexScriptable ammo_codex_3bm59;
+        public static AmmoType ammo_3bm59;
+        public static GameObject ammo_3bm59_vis = null;
+
+        public static AmmoClipCodexScriptable clip_codex_3bk29;
+        public static AmmoType.AmmoClip clip_3bk29;
+        public static AmmoCodexScriptable ammo_codex_3bk29;
+        public static AmmoType ammo_3bk29;
+        public static GameObject ammo_3bk29_vis = null;
+
         public static AmmoClipCodexScriptable clip_codex_dm105_33;
         public static AmmoType.AmmoClip clip_dm105_33;
         public static AmmoCodexScriptable ammo_codex_dm105_33;
         public static AmmoType ammo_dm105_33;
         public static GameObject ammo_dm105_33_vis = null;
 
-        public static Dictionary<string, AmmoClipCodexScriptable> leoap;
+        public static AmmoClipCodexScriptable clip_codex_dm105_63;
+        public static AmmoType.AmmoClip clip_dm105_63;
+        public static AmmoCodexScriptable ammo_codex_dm105_63;
+        public static AmmoType ammo_dm105_63;
+        public static GameObject ammo_dm105_63_vis = null;
 
         public override void UnloadDynamicAssets()
         {
@@ -51,11 +69,39 @@ namespace AmmoUpgradePack
             GameObject.DestroyImmediate(ammo_dm53_vis);
             GameObject.DestroyImmediate(ammo_m900_vis);
             GameObject.DestroyImmediate(ammo_dm105_33_vis);
+            GameObject.DestroyImmediate(ammo_3bk29_vis);
         }
+        public static IEnumerator TandemOptimization(GameState _)
+        {
+            ArmorCodexScriptable[] armor_codices = Resources.FindObjectsOfTypeAll<ArmorCodexScriptable>();
+            ArmorCodexScriptable[] k1_k5_m1_codices = armor_codices.Where
+            (
+                o =>
+                o.name.Contains("Kontakt-1") ||
+                o.name.Contains("Kontakt-5") ||
+                o.name.Contains("M1 ERA")
+            ).ToArray();
 
+            ArmorCodexScriptable[] relikt_codices = armor_codices.Where(o => o.name.Contains("Relikt")).ToArray();
+
+            List<AmmoType.ArmorOptimization> BK29 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable codex in k1_k5_m1_codices)
+            {
+                BK29.Add(Util.CreateArmourOptimization(codex, 0.01f));
+            }
+
+            foreach (ArmorCodexScriptable relikt_codex in relikt_codices)
+            {
+                BK29.Add(Util.CreateArmourOptimization(relikt_codex, 0.05f));
+            }
+
+            ammo_3bk29.ArmorOptimizations = BK29.ToArray();
+            yield break;
+        }
         public override void LoadDynamicAssets()
         {
-            // optimization defining // 
+            // anti-era tip optimization defining // 
             string era_schema = Assembly.CreateQualifiedName("PactIncreasedLethality", "PactIncreasedLethality.EraSchema");
             string k5 = Assembly.CreateQualifiedName("PactIncreasedLethality", "PactIncreasedLethality.Kontakt5");
             string relikt = Assembly.CreateQualifiedName("PactIncreasedLethality", "PactIncreasedLethality.Relikt");
@@ -64,7 +110,9 @@ namespace AmmoUpgradePack
             Type relikt_type = Type.GetType(relikt);
 
             // actual shells // 
-
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            ///120mm German Shells
+            ///////////////////////////////////////////////////////////////////////////////////////////////
             //
             ammo_dm33 = new AmmoType();
             Util.ShallowCopy(ammo_dm33, SharedAssetz.ammo_dm120);
@@ -97,14 +145,14 @@ namespace AmmoUpgradePack
             ammo_dm33.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_dm33;
 
             ///////////////////////////////////////////////////////////////////////////////////////////////
-            
+
             ammo_dm53 = new AmmoType();
             Util.ShallowCopy(ammo_dm53, SharedAssetz.ammo_dm120);
             ammo_dm53.Name = "DM53 APFSDS-T";
             ammo_dm53.RhaPenetration = 780;
             ammo_dm53.Caliber = 120;
             ammo_dm53.MuzzleVelocity = 1680;
-            ammo_dm53.Mass = 8.35f; 
+            ammo_dm53.Mass = 8.35f;
             ammo_dm53.MaxSpallRha = 30;
             ammo_dm53.MinSpallRha = 8;
 
@@ -127,6 +175,8 @@ namespace AmmoUpgradePack
             ammo_dm53.VisualModel = ammo_dm53_vis;
             ammo_dm53.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_dm53;
             ammo_dm53.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_dm53;
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            ///105 US Shells
             ///////////////////////////////////////////////////////////////////////////////////////////////
             ammo_m900 = new AmmoType();
             Util.ShallowCopy(ammo_m900, SharedAssetz.ammo_m833);
@@ -156,7 +206,8 @@ namespace AmmoUpgradePack
             ammo_m900.VisualModel = ammo_m900_vis;
             ammo_m900.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_m900;
             ammo_m900.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_m900;
-
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            ///105 German Shells
             ///////////////////////////////////////////////////////////////////////////////////////////////
             ammo_dm105_33 = new AmmoType();
             Util.ShallowCopy(ammo_dm105_33, SharedAssetz.ammo_dm105);
@@ -188,7 +239,39 @@ namespace AmmoUpgradePack
             ammo_dm105_33.VisualModel = ammo_dm105_33_vis;
             ammo_dm105_33.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_dm105_33;
             ammo_dm105_33.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_dm105_33;
+            ////////////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_dm105_63 = new AmmoType();
+            Util.ShallowCopy(ammo_dm105_63, SharedAssetz.ammo_dm105);
+            ammo_dm105_63.Name = "DM63 APFSDS-T";
+            ammo_dm105_63.RhaPenetration = 540;
+            ammo_dm105_63.Caliber = 105;
+            ammo_dm105_63.MuzzleVelocity = 1455;
+            ammo_dm105_63.Mass = 4.2f;
+            ammo_dm105_63.MaxSpallRha = 26;
+            ammo_dm105_63.MinSpallRha = 2;
+            ammo_dm105_63.Coeff = 0.195f;
 
+            Util.Coalesce(ref ammo_codex_dm105_63);
+            ammo_codex_dm105_63.AmmoType = ammo_dm105_63;
+            ammo_codex_dm105_63.name = "ammo_dm_105_63";
+
+            clip_dm105_63 = new AmmoType.AmmoClip();
+            clip_dm105_63.Capacity = 1;
+            clip_dm105_63.Name = "DM63 APFSDS-T";
+            clip_dm105_63.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_dm105_63.MinimalPattern[0] = ammo_codex_dm105_63;
+
+            Util.Coalesce(ref clip_codex_dm105_63);
+            clip_codex_dm105_63.name = "clip_dm_105_63";
+            clip_codex_dm105_63.ClipType = clip_dm105_63;
+
+            ammo_dm105_63_vis = GameObject.Instantiate(SharedAssetz.ammo_dm105.VisualModel);
+            ammo_dm105_63_vis.name = "dm105_63 visual";
+            ammo_dm105_63.VisualModel = ammo_dm105_63_vis;
+            ammo_dm105_63.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_dm105_63;
+            ammo_dm105_63.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_dm105_63;
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            ///115mm Shells
             ///////////////////////////////////////////////////////////////////////////////////////////////
             ammo_3bm36 = new AmmoType();
             Util.ShallowCopy(ammo_3bm36, SharedAssetz.ammo_3bm32);
@@ -218,6 +301,70 @@ namespace AmmoUpgradePack
             ammo_3bm36.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bm36;
             ammo_3bm36.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_3bm36;
             ///////////////////////////////////////////////////////////////////////////////////////////////
+            ///125mm Shells //
+            //////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_3bm59 = new AmmoType();
+            Util.ShallowCopy(ammo_3bm59, SharedAssetz.ammo_3bm32);
+            ammo_3bm59.Name = "3BM59 APFSDS-T";
+            ammo_3bm59.Caliber = 125;
+            ammo_3bm59.RhaPenetration = 770f;
+            ammo_3bm59.Mass = 4.93f;
+            ammo_3bm59.MuzzleVelocity = 1725f;
+            ammo_3bm59.SpallMultiplier = 1.8f;
+            ammo_3bm59.MaxSpallRha = 30f;
+            ammo_3bm59.MinSpallRha = 6f;
+
+            Util.Coalesce(ref ammo_codex_3bm59);
+            ammo_codex_3bm59.AmmoType = ammo_3bm59;
+            ammo_codex_3bm59.name = "ammo_3bm59";
+
+            clip_3bm59 = new AmmoType.AmmoClip();
+            clip_3bm59.Capacity = 1;
+            clip_3bm59.Name = "3BM59 APFSDS-T";
+            clip_3bm59.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_3bm59.MinimalPattern[0] = ammo_codex_3bm59;
+
+            Util.Coalesce(ref clip_codex_3bm59);
+            clip_codex_3bm59.name = "clip_3bm59";
+            clip_codex_3bm59.ClipType = clip_3bm59;
+
+            ammo_3bm59_vis = GameObject.Instantiate(SharedAssetz.ammo_3bm32.VisualModel);
+            ammo_3bm59_vis.name = "3bm59 visual";
+            ammo_3bm59.VisualModel = ammo_3bm59_vis;
+            ammo_3bm59.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bm59;
+            ammo_3bm59.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_3bm59;
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_3bk29 = new AmmoType();
+            Util.ShallowCopy(ammo_3bk29, SharedAssetz.ammo_3bk18m);
+            ammo_3bk29.Name = "3BK29 HEAT-FS-T";
+            ammo_3bk29.RhaPenetration = 630;
+            ammo_3bk29.Caliber = 125;
+            ammo_3bk29.MuzzleVelocity = 915;
+            ammo_3bk29.ForcedSpallAngle = 90;
+            ammo_3bk29.MaxSpallRha = 24;
+            ammo_3bk29.MinSpallRha = 1;
+            ammo_3bk29.SpallMultiplier = 1.85f;
+
+            Util.Coalesce(ref ammo_codex_3bk29);
+            ammo_codex_3bk29.AmmoType = ammo_3bk29;
+            ammo_codex_3bk29.name = "ammo_3BK29";
+
+            clip_3bk29 = new AmmoType.AmmoClip();
+            clip_3bk29.Capacity = 1;
+            clip_3bk29.Name = "3BK29 HEAT-FS-T";
+            clip_3bk29.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_3bk29.MinimalPattern[0] = ammo_codex_3bk29;
+
+            Util.Coalesce(ref clip_codex_3bk29);
+            clip_codex_3bk29.name = "clip_3BK29";
+            clip_codex_3bk29.ClipType = clip_3bk29;
+
+            ammo_3bk29_vis = GameObject.Instantiate(SharedAssetz.ammo_3bk18m.VisualModel);
+            ammo_3bk29_vis.name = "3BK29 visual";
+            ammo_3bk29.VisualModel = ammo_3bk29_vis;
+            ammo_3bk29.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bk29;
+            ammo_3bk29.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_3bk29;
+            ///////////////////////////////////////////////////////////////////////////////////////////////
             // anti Era Optimizations //
             if (k5_type != null)
             {
@@ -236,16 +383,8 @@ namespace AmmoUpgradePack
                         RhaRatio = 0.4f
                     }
                 };
+                ///////////////////////////////////////////////////////////////////////////////////////////////
             }
-            ///////////////////////////////////////////////////////////////////////////////////////////////
-
-
-            leoap = new Dictionary<string, AmmoClipCodexScriptable>()
-            {
-                ["DM23"] = SharedAssetz.codex_dm120,
-                ["DM33"] = clip_codex_dm33,
-                ["DM53"] = clip_codex_dm53
-            };
         }
     }
 }
