@@ -19,7 +19,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.1B", "Aeiou6")]
+[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.2", "Aeiou6")]
 [assembly: MelonGame("Radian Simulations LLC", "GHPC")]
 
 namespace AmmoUpgrade
@@ -66,6 +66,7 @@ namespace AmmoUpgrade
             module_manager.Add("SharedAssetz", new SharedAssetz());
             module_manager.Add("Shells", new Shells());
             module_manager.Add("Leo2", new Leo2());
+            module_manager.Add("Leo2A4Compat", new Leo2a4());
             module_manager.Add("Leo1", new Leo1());
             module_manager.Add("M1", new M1());
             module_manager.Add("M60", new M60());
@@ -101,6 +102,7 @@ namespace AmmoUpgrade
                 StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(OnPlayerReady), GameStatePriority.Medium);
                 StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Shells.TandemOptimization), GameStatePriority.Lowest);
                 Leo2.Init();
+                Leo2a4.Init();
                 Leo1.Init();
                 M1.Init();
                 M60.Init();

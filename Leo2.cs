@@ -60,8 +60,8 @@ namespace AmmoUpgradePack
             if (vic.FriendlyName != "Leopard 2A3"
                 && vic.FriendlyName != "Leopard 2A2"
                 && vic.FriendlyName != "Leopard 2A1"
-                && vic.FriendlyName != "Leopard 2"
-                && vic.UniqueName != "LEO2A4") return;
+                && vic.FriendlyName != "Leopard 2") return;
+            MelonLogger.Msg("LEO2 FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
@@ -103,7 +103,7 @@ namespace AmmoUpgradePack
         public static void Init()
         {
             if (!patch.Value) return;
-            StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(Convert), GameStatePriority.Medium);
+            StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Convert), GameStatePriority.Medium);
         }
     }
 }

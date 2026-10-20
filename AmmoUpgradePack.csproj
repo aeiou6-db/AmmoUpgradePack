@@ -95,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Leo1.cs" />
+    <Compile Include="LEO2A4Compat.cs" />
     <Compile Include="Leo2.cs" />
     <Compile Include="M1.cs" />
     <Compile Include="M60.cs" />
