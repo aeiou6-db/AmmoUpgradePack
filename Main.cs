@@ -19,7 +19,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.1B", "Aeiou6")]
+[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.2", "Aeiou6")]
 [assembly: MelonGame("Radian Simulations LLC", "GHPC")]
 
 namespace AmmoUpgrade
