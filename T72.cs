@@ -52,22 +52,22 @@ namespace AmmoUpgradePack
             {
                 if (BM59M.Value == true)
                 {
-                    loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_3bm59;
+                    loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsPACT.clip_codex_3bm59;
                 }
                 if (BK29M.Value == true)
                 {
-                    loadout_manager.LoadedAmmoList.AmmoClips[1] = Shells.clip_codex_3bk29;
+                    loadout_manager.LoadedAmmoList.AmmoClips[1] = shellsPACT.clip_codex_3bk29;
                 }
             }
             if (vic.UniqueName == "T72M1")
             {
                 if (BM59M1.Value == true)
                 {
-                    loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_3bm59;
+                    loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsPACT.clip_codex_3bm59;
                 }
                 if (BK29M1.Value == true)
                 {
-                    loadout_manager.LoadedAmmoList.AmmoClips[1] = Shells.clip_codex_3bk29;
+                    loadout_manager.LoadedAmmoList.AmmoClips[1] = shellsPACT.clip_codex_3bk29;
                 }
             }
             for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)

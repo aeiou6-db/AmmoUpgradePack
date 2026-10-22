@@ -60,7 +60,7 @@ namespace AmmoUpgradePack
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
             WeaponSystem main_gun = main_gun_info.Weapon;
             if (main_gun_info.Name == "120mm Gun M256") return;
-            loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_m900;
+            loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_m900;
             for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
             {
                 GHPC.Weapons.AmmoRack rack = loadout_manager.RackLoadouts[i].Rack;

@@ -70,11 +70,11 @@ namespace AmmoUpgradePack
             string ammostr = ammo_ap.Value;
             if (ammostr == "DM53")
             {
-                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm53;
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_dm53;
             }
             if (ammostr == "DM33")
             {
-                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm33;
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_dm33;
             }
             if (ammostr == "DM23")
             {

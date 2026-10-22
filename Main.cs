@@ -19,7 +19,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.2", "Aeiou6")]
+[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.2.1", "Aeiou6")]
 [assembly: MelonGame("Radian Simulations LLC", "GHPC")]
 
 namespace AmmoUpgrade
@@ -62,9 +62,12 @@ namespace AmmoUpgrade
             T80.Config(cfg);
             T64A.Config(cfg);
             T64B.Config(cfg);
+            BMP1.Config(cfg);
+            BMP2.Config(cfg);
 
             module_manager.Add("SharedAssetz", new SharedAssetz());
-            module_manager.Add("Shells", new Shells());
+            module_manager.Add("ShellsNATO", new shellsNATO());
+            module_manager.Add("ShellsPACT", new shellsPACT());
             module_manager.Add("Leo2", new Leo2());
             module_manager.Add("Leo2A4Compat", new Leo2a4());
             module_manager.Add("Leo1", new Leo1());
@@ -75,6 +78,8 @@ namespace AmmoUpgrade
             module_manager.Add("T80", new T80());
             module_manager.Add("T64A", new T64A());
             module_manager.Add("T64B", new T64B());
+            module_manager.Add("BMP1", new BMP1());
+            module_manager.Add("BMP2", new BMP2());
             MelonLogger.Msg("Completed Intial loading");
         }
 
@@ -100,7 +105,8 @@ namespace AmmoUpgrade
             {
                 StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(AssetUtil.ReleaseTempVanillaAssetsDeferred), GameStatePriority.Medium);
                 StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(OnPlayerReady), GameStatePriority.Medium);
-                StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Shells.TandemOptimization), GameStatePriority.Lowest);
+                StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(shellsPACT.TandemOptimization), GameStatePriority.Lowest);
+                StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(shellsNATO.TandemOptimization), GameStatePriority.Lowest);
                 Leo2.Init();
                 Leo2a4.Init();
                 Leo1.Init();
@@ -111,6 +117,8 @@ namespace AmmoUpgrade
                 T80.Init();
                 T64A.Init();
                 T64B.Init();
+                BMP1.Init();
+                BMP2.Init();
                 valid_scene_count = 0;
             }
         }

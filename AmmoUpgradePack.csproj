@@ -94,10 +94,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BMP2.cs" />
     <Compile Include="Leo1.cs" />
     <Compile Include="LEO2A4Compat.cs" />
     <Compile Include="Leo2.cs" />
     <Compile Include="M1.cs" />
+    <Compile Include="BMP1.cs" />
     <Compile Include="M60.cs" />
     <Compile Include="ModUtil\AssetUtil.cs" />
     <Compile Include="Main.cs" />
@@ -107,7 +109,8 @@
     <Compile Include="ModUtil\Util.cs" />
     <Compile Include="ModUtil\VehicleModule.cs" />
     <Compile Include="SharedAssetz.cs" />
-    <Compile Include="shells.cs" />
+    <Compile Include="shellsPACT.cs" />
+    <Compile Include="shellsNATO.cs" />
     <Compile Include="T62.cs" />
     <Compile Include="T64B.cs" />
     <Compile Include="T64A.cs" />

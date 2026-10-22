@@ -43,11 +43,11 @@ namespace AmmoUpgradePack
             WeaponSystem main_gun = main_gun_info.Weapon;
             if (BM59.Value == true)
             {
-                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_3bm59;
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsPACT.clip_codex_3bm59;
             }
             if (BK29.Value == true)
             {
-                loadout_manager.LoadedAmmoList.AmmoClips[1] = Shells.clip_codex_3bk29;
+                loadout_manager.LoadedAmmoList.AmmoClips[1] = shellsPACT.clip_codex_3bk29;
             }
             for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
             {

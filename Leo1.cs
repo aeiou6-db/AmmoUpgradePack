@@ -51,11 +51,11 @@ namespace AmmoUpgradePack
             WeaponSystem main_gun = main_gun_info.Weapon;
             if (ammo_ap.Value == "DM33")
             {
-                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm105_33;
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_dm105_33;
             }
             if (ammo_ap.Value == "DM63")
             {
-                loadout_manager.LoadedAmmoList.AmmoClips[0] = Shells.clip_codex_dm105_63;
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_dm105_63;
             }
             for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
             {
