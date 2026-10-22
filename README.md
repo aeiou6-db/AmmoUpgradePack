@@ -34,3 +34,15 @@ T-64/T-72/T-80
 
 - 3BM59
 - 3BK29
+
+BMP-2
+
+  - Konkurs-M
+
+  - Kornet-M (PIL Kornet Compat)
+
+BMP-1P
+
+  - Konkurs-M
+
+  
