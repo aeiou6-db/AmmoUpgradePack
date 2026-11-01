@@ -4,7 +4,7 @@ As of V1.1B is compatible with
 
 M1A1 Abrams
 
-PIL
+PIL (exception: T-72 ATGMs)
 
 Fulda89
 
