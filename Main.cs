@@ -63,9 +63,15 @@ namespace AmmoUpgrade
             T64A.Config(cfg);
             T64B.Config(cfg);
             BMP1.Config(cfg);
+            BMP1P.Config(cfg);
             BMP2.Config(cfg);
+            Marder.Config(cfg);
+            Launcher9K111.Config(cfg);
+            TOWJeep.Config(cfg);
+            TOWTripod.Config(cfg);
+            SPG9.Config(cfg);
 
-            module_manager.Add("SharedAssetz", new SharedAssetz());
+            module_manager.Add("SharedAssets", new SharedAssets());
             module_manager.Add("ShellsNATO", new shellsNATO());
             module_manager.Add("ShellsPACT", new shellsPACT());
             module_manager.Add("Leo2", new Leo2());
@@ -79,7 +85,13 @@ namespace AmmoUpgrade
             module_manager.Add("T64A", new T64A());
             module_manager.Add("T64B", new T64B());
             module_manager.Add("BMP1", new BMP1());
+            module_manager.Add("BMP1P", new BMP1P());
             module_manager.Add("BMP2", new BMP2());
+            module_manager.Add("Marder", new Marder());
+            module_manager.Add("Launcher9K111", new Launcher9K111());
+            module_manager.Add("TowTripod", new TOWTripod());
+            module_manager.Add("TowJeep", new TOWJeep());
+            module_manager.Add("SPG9", new SPG9());
             MelonLogger.Msg("Completed Intial loading");
         }
 
@@ -118,7 +130,13 @@ namespace AmmoUpgrade
                 T64A.Init();
                 T64B.Init();
                 BMP1.Init();
+                BMP1P.Init();
                 BMP2.Init();
+                Marder.Init();
+                Launcher9K111.Init();
+                TOWTripod.Init();
+                TOWJeep.Init();
+                SPG9.Init();
                 valid_scene_count = 0;
             }
         }

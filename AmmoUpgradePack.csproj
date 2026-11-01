@@ -94,12 +94,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TowJeep.cs" />
+    <Compile Include="TOWTripod.cs" />
+    <Compile Include="Marder.cs" />
+    <Compile Include="SPG9.cs" />
+    <Compile Include="BMP1.cs" />
     <Compile Include="BMP2.cs" />
+    <Compile Include="9K111.cs" />
     <Compile Include="Leo1.cs" />
     <Compile Include="LEO2A4Compat.cs" />
     <Compile Include="Leo2.cs" />
     <Compile Include="M1.cs" />
-    <Compile Include="BMP1.cs" />
+    <Compile Include="BMP1P.cs" />
     <Compile Include="M60.cs" />
     <Compile Include="ModUtil\AssetUtil.cs" />
     <Compile Include="Main.cs" />
@@ -108,7 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModUtil\Util.cs" />
     <Compile Include="ModUtil\VehicleModule.cs" />
-    <Compile Include="SharedAssetz.cs" />
+    <Compile Include="SharedAssets.cs" />
     <Compile Include="shellsPACT.cs" />
     <Compile Include="shellsNATO.cs" />
     <Compile Include="T62.cs" />

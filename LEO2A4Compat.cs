@@ -37,7 +37,7 @@ namespace AmmoUpgradePack
             }
             if (ammostr == "DM23")
             {
-                loadout_manager.LoadedAmmoList.AmmoClips[0] = SharedAssetz.codex_dm120;
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = SharedAssets.codex_dm120;
             }
             for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
             {

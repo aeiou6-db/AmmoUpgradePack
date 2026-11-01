@@ -21,6 +21,36 @@ namespace AmmoUpgradePack
         public static AmmoType ammo_konkursM;
         public static GameObject ammo_konkursM_vis = null;
 
+        public static AmmoClipCodexScriptable clip_codex_konkurs;
+        public static AmmoType.AmmoClip clip_konkurs;
+        public static AmmoCodexScriptable ammo_codex_konkurs;
+        public static AmmoType ammo_konkurs;
+        public static GameObject ammo_konkurs_vis = null;
+
+        public static AmmoClipCodexScriptable clip_codex_9M111M;
+        public static AmmoType.AmmoClip clip_9M111M;
+        public static AmmoCodexScriptable ammo_codex_9M111M;
+        public static AmmoType ammo_9M111M;
+        public static GameObject ammo_9M111M_vis = null;
+
+        public static AmmoClipCodexScriptable clip_codex_9M14P;
+        public static AmmoType.AmmoClip clip_9M14P;
+        public static AmmoCodexScriptable ammo_codex_9M14P;
+        public static AmmoType ammo_9M14P;
+        public static GameObject ammo_9M14P_vis = null;
+
+        public static AmmoClipCodexScriptable clip_codex_9M142;
+        public static AmmoType.AmmoClip clip_9M142;
+        public static AmmoCodexScriptable ammo_codex_9M142;
+        public static AmmoType ammo_9M142;
+        public static GameObject ammo_9M142_vis = null;
+
+        public static AmmoClipCodexScriptable clip_codex_9M142M;
+        public static AmmoType.AmmoClip clip_9M142M;
+        public static AmmoCodexScriptable ammo_codex_9M142M;
+        public static AmmoType ammo_9M142M;
+        public static GameObject ammo_9M142M_vis = null;
+
         public static AmmoClipCodexScriptable clip_codex_9m133M;
         public static AmmoType.AmmoClip clip_9m133M;
         public static AmmoCodexScriptable ammo_codex_9m133M;
@@ -44,6 +74,13 @@ namespace AmmoUpgradePack
         public static AmmoCodexScriptable ammo_codex_3bk29;
         public static AmmoType ammo_3bk29;
         public static GameObject ammo_3bk29_vis = null;
+
+        public static AmmoClipCodexScriptable clip_codex_pg15vnt;
+        public static AmmoType.AmmoClip clip_pg15vnt;
+        public static AmmoCodexScriptable ammo_codex_pg15vnt;
+        public static AmmoType ammo_pg15vnt;
+        public static GameObject ammo_pg15vnt_vis = null;
+
 
         public override void UnloadDynamicAssets()
         {
@@ -93,12 +130,33 @@ namespace AmmoUpgradePack
             {
                 tandem.Add(Util.CreateArmourOptimization(heavycodex, 0.2f));
             }
+
+            // for shitty tandem rounds
+            List<AmmoType.ArmorOptimization> shittytandem = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable lightcodex in lightERA)
+            {
+                shittytandem.Add(Util.CreateArmourOptimization(lightcodex, 0.1f));
+            }
+
+            foreach (ArmorCodexScriptable natocodex in natoERA)
+            {
+                shittytandem.Add(Util.CreateArmourOptimization(natocodex, 0.2f));
+            }
+
+            foreach (ArmorCodexScriptable heavycodex in RUHeavy)
+            {
+                shittytandem.Add(Util.CreateArmourOptimization(heavycodex, 0.4f));
+            }
             ///
-           
+
 
             ammo_3bk29.ArmorOptimizations = tandem.ToArray();
             ammo_konkursM.ArmorOptimizations = tandem.ToArray();
             ammo_9m133M.ArmorOptimizations = tandem.ToArray();
+
+            ammo_pg15vnt.ArmorOptimizations = shittytandem.ToArray();
+            ammo_9M142M.ArmorOptimizations = shittytandem.ToArray();
             yield break;
         }
         public override void LoadDynamicAssets()
@@ -108,7 +166,7 @@ namespace AmmoUpgradePack
             ///115mm Shells
             ///////////////////////////////////////////////////////////////////////////////////////////////
             ammo_3bm36 = new AmmoType();
-            Util.ShallowCopy(ammo_3bm36, SharedAssetz.ammo_3bm32);
+            Util.ShallowCopy(ammo_3bm36, SharedAssets.ammo_3bm32);
             ammo_3bm36.Name = "3BM36 APFSDS-T";
             ammo_3bm36.RhaPenetration = 535;
             ammo_3bm36.Caliber = 115;
@@ -129,7 +187,7 @@ namespace AmmoUpgradePack
             clip_codex_3bm36.name = "clip_3bm36";
             clip_codex_3bm36.ClipType = clip_3bm36;
 
-            ammo_3bm36_vis = GameObject.Instantiate(SharedAssetz.ammo_3bm28.VisualModel);
+            ammo_3bm36_vis = GameObject.Instantiate(SharedAssets.ammo_3bm28.VisualModel);
             ammo_3bm36_vis.name = "3bm36 visual";
             ammo_3bm36.VisualModel = ammo_3bm36_vis;
             ammo_3bm36.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bm36;
@@ -138,7 +196,7 @@ namespace AmmoUpgradePack
             ///125mm Shells //
             //////////////////////////////////////////////////////////////////////////////////////////////
             ammo_3bm59 = new AmmoType();
-            Util.ShallowCopy(ammo_3bm59, SharedAssetz.ammo_3bm32);
+            Util.ShallowCopy(ammo_3bm59, SharedAssets.ammo_3bm32);
             ammo_3bm59.Name = "3BM59 APFSDS-T";
             ammo_3bm59.Caliber = 125;
             ammo_3bm59.RhaPenetration = 770f;
@@ -162,14 +220,14 @@ namespace AmmoUpgradePack
             clip_codex_3bm59.name = "clip_3bm59";
             clip_codex_3bm59.ClipType = clip_3bm59;
 
-            ammo_3bm59_vis = GameObject.Instantiate(SharedAssetz.ammo_3bm32.VisualModel);
+            ammo_3bm59_vis = GameObject.Instantiate(SharedAssets.ammo_3bm32.VisualModel);
             ammo_3bm59_vis.name = "3bm59 visual";
             ammo_3bm59.VisualModel = ammo_3bm59_vis;
             ammo_3bm59.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bm59;
             ammo_3bm59.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_3bm59;
             ////////////////////////////////////////////////////////////////////////////////////////////////
             ammo_3bk29 = new AmmoType();
-            Util.ShallowCopy(ammo_3bk29, SharedAssetz.ammo_3bk18m);
+            Util.ShallowCopy(ammo_3bk29, SharedAssets.ammo_3bk18m);
             ammo_3bk29.Name = "3BK29 HEAT-FS-T";
             ammo_3bk29.RhaPenetration = 630;
             ammo_3bk29.Caliber = 125;
@@ -193,19 +251,138 @@ namespace AmmoUpgradePack
             clip_codex_3bk29.name = "clip_3BK29";
             clip_codex_3bk29.ClipType = clip_3bk29;
 
-            ammo_3bk29_vis = GameObject.Instantiate(SharedAssetz.ammo_3bk18m.VisualModel);
+            ammo_3bk29_vis = GameObject.Instantiate(SharedAssets.ammo_3bk18m.VisualModel);
             ammo_3bk29_vis.name = "3BK29 visual";
             ammo_3bk29.VisualModel = ammo_3bk29_vis;
             ammo_3bk29.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_3bk29;
             ammo_3bk29.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_3bk29;
             ////////////////////////////////////////////////////////////////////////////////////////////////
+            /// 73mm ///
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_pg15vnt = new AmmoType();
+            Util.ShallowCopy(ammo_pg15vnt, SharedAssets.ammo_pg15);
+            ammo_pg15vnt.Name = "PG-15VNT HEAT";
+            ammo_pg15vnt.Category = AmmoType.AmmoCategory.ShapedCharge;
+            ammo_pg15vnt.RhaPenetration = 440;
+
+            Util.Coalesce(ref ammo_codex_pg15vnt);
+            ammo_codex_pg15vnt.AmmoType = ammo_pg15vnt;
+            ammo_codex_pg15vnt.name = "ammo_pg15vnt";
+
+            clip_pg15vnt = new AmmoType.AmmoClip();
+            clip_pg15vnt.Capacity = 1;
+            clip_pg15vnt.Name = "PG-15VNT HEAT";
+            clip_pg15vnt.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_pg15vnt.MinimalPattern[0] = ammo_codex_pg15vnt;
+
+            Util.Coalesce(ref clip_codex_pg15vnt);
+            clip_codex_pg15vnt.name = "clip_pg15vnt";
+            clip_codex_pg15vnt.ClipType = clip_pg15vnt;
+
+            ammo_pg15vnt_vis = GameObject.Instantiate(SharedAssets.ammo_pg15.VisualModel);
+            ammo_pg15vnt_vis.name = "pg15vnt visual";
+            ammo_pg15vnt.VisualModel = ammo_pg15vnt_vis;
+            ammo_pg15vnt.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_pg15vnt;
+            ammo_pg15vnt.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_pg15vnt;
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             /// ATGMS ///
             ////////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_9M111M = new AmmoType();
+            Util.ShallowCopy(ammo_9M111M, SharedAssets.ammo_fagot);
+            ammo_9M111M.Name = "9M111M Fagot-M";
+            ammo_9M111M.Category = AmmoType.AmmoCategory.ShapedCharge;
+            ammo_9M111M.RhaPenetration = 500;
+            ammo_9M111M.TerrainImpactEffect = Resources.FindObjectsOfTypeAll<GameObject>().Where(o => o.name == "HE Terrain Impact").First();
+            ammo_9M111M.DetonateEffect = Resources.FindObjectsOfTypeAll<GameObject>().Where(o => o.name == "HEAT_explosion_large").First();
+            ammo_9M111M.ShotVisual = Resources.FindObjectsOfTypeAll<GameObject>().Where(o => o.name == "9M111 visual new").First();
+
+            Util.Coalesce(ref ammo_codex_9M111M);
+            ammo_codex_9M111M.AmmoType = ammo_9M111M;
+            ammo_codex_9M111M.name = "ammo_9M111M";
+
+            clip_9M111M = new AmmoType.AmmoClip();
+            clip_9M111M.Capacity = 1;
+            clip_9M111M.Name = "9M111M Fagot-M";
+            clip_9M111M.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_9M111M.MinimalPattern[0] = ammo_codex_9M111M;
+
+            Util.Coalesce(ref clip_codex_9M111M);
+            clip_codex_9M111M.name = "clip_9M111M";
+            clip_codex_9M111M.ClipType = clip_9M111M;
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_9M14P = new AmmoType();
+            Util.ShallowCopy(ammo_9M14P, SharedAssets.ammo_malyutka);
+            ammo_9M14P.Name = "9M14P Malyutka-P";
+            ammo_9M14P.Category = AmmoType.AmmoCategory.ShapedCharge;
+            ammo_9M14P.Guidance = AmmoType.GuidanceType.SACLOS;
+            ammo_9M14P.NoisePowerX = 60;
+            ammo_9M14P.NoisePowerY = 60;
+
+            Util.Coalesce(ref ammo_codex_9M14P);
+            ammo_codex_9M14P.AmmoType = ammo_9M14P;
+            ammo_codex_9M14P.name = "ammo_9M14P";
+
+            clip_9M14P = new AmmoType.AmmoClip();
+            clip_9M14P.Capacity = 1;
+            clip_9M14P.Name = "9M14P Malyutka-P";
+            clip_9M14P.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_9M14P.MinimalPattern[0] = ammo_codex_9M14P;
+
+            Util.Coalesce(ref clip_codex_9M14P);
+            clip_codex_9M14P.name = "clip_9M14P";
+            clip_codex_9M14P.ClipType = clip_9M14P;
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_9M142 = new AmmoType();
+            Util.ShallowCopy(ammo_9M142, SharedAssets.ammo_malyutka);
+            ammo_9M142.Name = "9M14-2 Malyutka-2";
+            ammo_9M142.Category = AmmoType.AmmoCategory.ShapedCharge;
+            ammo_9M142.Guidance = AmmoType.GuidanceType.SACLOS;
+            ammo_9M142.NoisePowerX = 45;
+            ammo_9M142.NoisePowerY = 45;
+            ammo_9M142.RhaPenetration = 580;
+
+            Util.Coalesce(ref ammo_codex_9M142);
+            ammo_codex_9M142.AmmoType = ammo_9M142;
+            ammo_codex_9M142.name = "ammo_9M142";
+
+            clip_9M142 = new AmmoType.AmmoClip();
+            clip_9M142.Capacity = 1;
+            clip_9M142.Name = "9M14-2 Malyutka-2";
+            clip_9M142.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_9M142.MinimalPattern[0] = ammo_codex_9M142;
+
+            Util.Coalesce(ref clip_codex_9M142);
+            clip_codex_9M142.name = "clip_9M142";
+            clip_codex_9M142.ClipType = clip_9M142;
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_9M142M = new AmmoType();
+            Util.ShallowCopy(ammo_9M142M, SharedAssets.ammo_malyutka);
+            ammo_9M142M.Name = "9M14-2M Malyutka-2M";
+            ammo_9M142M.Category = AmmoType.AmmoCategory.ShapedCharge;
+            ammo_9M142M.Guidance = AmmoType.GuidanceType.SACLOS;
+            ammo_9M142M.NoisePowerX = 45;
+            ammo_9M142M.NoisePowerY = 45;
+            ammo_9M142M.RhaPenetration = 600;
+
+            Util.Coalesce(ref ammo_codex_9M142M);
+            ammo_codex_9M142M.AmmoType = ammo_9M142M;
+            ammo_codex_9M142M.name = "ammo_9M142M";
+
+            clip_9M142M = new AmmoType.AmmoClip();
+            clip_9M142M.Capacity = 1;
+            clip_9M142M.Name = "9M14-2M Malyutka-2M";
+            clip_9M142M.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_9M142M.MinimalPattern[0] = ammo_codex_9M142M;
+
+            Util.Coalesce(ref clip_codex_9M142M);
+            clip_codex_9M142M.name = "clip_9M142M";
+            clip_codex_9M142M.ClipType = clip_9M142M;
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             ammo_konkursM = new AmmoType();
-            Util.ShallowCopy(ammo_konkursM, SharedAssetz.ammo_konkurs);
+            Util.ShallowCopy(ammo_konkursM, SharedAssets.ammo_konkurs);
             ammo_konkursM.Name = "9M113M Konkurs-M";
             ammo_konkursM.Category = AmmoType.AmmoCategory.ShapedCharge;
-            ammo_konkursM.RhaPenetration = 900;
+            ammo_konkursM.RhaPenetration = 850;
             ammo_konkursM.MuzzleVelocity = 206;
             ammo_konkursM.Caliber = 135;
             ammo_konkursM.RangedFuseTime = 12f;
@@ -232,11 +409,32 @@ namespace AmmoUpgradePack
             clip_codex_konkursM.name = "clip_9M113M";
             clip_codex_konkursM.ClipType = clip_konkursM;
             ////////////////////////////////////////////////////////////////////////////////////////////////
+            ammo_konkurs = new AmmoType();
+            // this is just a vanilla konkurs
+            Util.ShallowCopy(ammo_konkurs, SharedAssets.ammo_konkurs);
+            ammo_konkurs.TerrainImpactEffect = Resources.FindObjectsOfTypeAll<GameObject>().Where(o => o.name == "HE Terrain Impact").First();
+            ammo_konkurs.DetonateEffect = Resources.FindObjectsOfTypeAll<GameObject>().Where(o => o.name == "HEAT_explosion_large").First();
+            ammo_konkurs.ShotVisual = Resources.FindObjectsOfTypeAll<GameObject>().Where(o => o.name == "9M111 visual new").First();
+
+            Util.Coalesce(ref ammo_codex_konkurs);
+            ammo_codex_konkurs.AmmoType = ammo_konkurs;
+            ammo_codex_konkurs.name = "ammo_konkurs";
+
+            clip_konkurs = new AmmoType.AmmoClip();
+            clip_konkurs.Capacity = 1;
+            clip_konkurs.Name = "9M113 Konkurs";
+            clip_konkurs.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_konkurs.MinimalPattern[0] = ammo_codex_konkurs;
+
+            Util.Coalesce(ref clip_codex_konkurs);
+            clip_codex_konkurs.name = "clip_konkurs";
+            clip_codex_konkurs.ClipType = clip_konkurs;
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             ammo_9m133M = new AmmoType();
-            Util.ShallowCopy(ammo_9m133M, SharedAssetz.ammo_konkurs);
+            Util.ShallowCopy(ammo_9m133M, SharedAssets.ammo_konkurs);
             ammo_9m133M.Name = "9M133M Kornet-M";
             ammo_9m133M.Category = AmmoType.AmmoCategory.ShapedCharge;
-            ammo_9m133M.RhaPenetration = 1500f;
+            ammo_9m133M.RhaPenetration = 1350f;
             ammo_9m133M.MuzzleVelocity = 350f;
             ammo_9m133M.SpiralPower = 20f;
             ammo_9m133M.TntEquivalentKg = 6.5f;
@@ -256,14 +454,13 @@ namespace AmmoUpgradePack
             clip_9m133M = new AmmoType.AmmoClip();
             clip_9m133M.Capacity = 4;
             clip_9m133M.Name = "9M133M Kornet-M";
-            clip_9m133M.MinimalPattern = new AmmoCodexScriptable[] { ammo_codex_9m133M };
+            clip_9m133M.MinimalPattern = new AmmoCodexScriptable[1];
             clip_9m133M.MinimalPattern[0] = ammo_codex_9m133M;
 
-            Util.Coalesce(ref ammo_codex_9m133M);
-            ammo_codex_9m133M.name = "clip_9m133M";
+            Util.Coalesce(ref clip_codex_9m133M);
+            clip_codex_9m133M.name = "clip_9m133M";
             clip_codex_9m133M.ClipType = clip_9m133M;
             ////////////////////////////////////////////////////////////////////////////////////////////////
-
         }
     }
 }

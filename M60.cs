@@ -41,12 +41,22 @@ namespace AmmoUpgradePack
 {
     public class M60 : ModUtil.Module
     {
-        static MelonPreferences_Entry<bool> M900;
+        static MelonPreferences_Entry<bool> patch;
+        static MelonPreferences_Entry<bool> M900Late;
+        static MelonPreferences_Entry<bool> M900Early;
 
         public static void Config(MelonPreferences_Category cfg)
         {
-            M900 = cfg.CreateEntry<bool>("(M60) M900 APFSDS-T", true);
-            M900.Comment = "Applies to all M60s";
+            patch = cfg.CreateEntry<bool>("M60 Patch", true);
+            patch.Comment = "//////////////////////////////////////////";
+
+            M900Late = cfg.CreateEntry<bool>("(M60 Late) M900 APFSDS-T", true);
+            M900Late.Comment = "Applies to TTS + Rise Passive";
+
+            /// early m60s //
+
+            M900Early = cfg.CreateEntry<bool>("(M60 Early) M900 APFSDS-T", true);
+            M900Early.Comment = "Applies to AOS + A1";
         }
         private static void HandleConversion(Vehicle vic)
         {
@@ -59,17 +69,37 @@ namespace AmmoUpgradePack
                 && vic.UniqueName != "M60A1"
                 && vic.UniqueName != "M60A1RISEP")
                 return;
-            if (M900.Value == false) return;
-            MelonLogger.Msg("M60 FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
             WeaponSystem main_gun = main_gun_info.Weapon;
-            loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_m900;
-            for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
+            if (vic.UniqueName == "M60A1RISEP"
+                || vic.UniqueName == "M60A3TTS")
             {
-                GHPC.Weapons.AmmoRack rack = loadout_manager.RackLoadouts[i].Rack;
-                Util.EmptyRack(rack);
+                if (M900Late.Value == true)
+                {
+                    MelonLogger.Msg("M60 LATE FOUND");
+                    loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_m900;
+                    for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
+                    {
+                        GHPC.Weapons.AmmoRack rack = loadout_manager.RackLoadouts[i].Rack;
+                        Util.EmptyRack(rack);
+                    }
+                }    
+            }
+            if (vic.UniqueName == "M60A1AOS"
+                || vic.UniqueName == "M60A1")
+            {
+                if (M900Early.Value == true)
+                {
+                    MelonLogger.Msg("M60 EARLY FOUND");
+                    loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_m900;
+                    for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
+                    {
+                        GHPC.Weapons.AmmoRack rack = loadout_manager.RackLoadouts[i].Rack;
+                        Util.EmptyRack(rack);
+                    }
+                }
             }
             main_gun.Feed.AmmoTypeInBreech = null;
             loadout_manager.SpawnCurrentLoadout();
@@ -88,7 +118,7 @@ namespace AmmoUpgradePack
 
         public static void Init()
         {
-            StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(Convert), GameStatePriority.Medium);
+            StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
         }
     }
 }

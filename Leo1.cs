@@ -79,6 +79,7 @@ namespace AmmoUpgradePack
 
         public static void Init()
         {
+            if (!patch.Value) return;
             StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
         }
     }
