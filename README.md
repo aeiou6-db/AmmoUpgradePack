@@ -37,12 +37,37 @@ T-64/T-72/T-80
 
 BMP-2
 
-  - Konkurs-M
+  - Konkurs-M ATGM
 
   - Kornet-M (PIL Kornet Compat)
 
 BMP-1P
 
-  - Konkurs-M
+  - PG-15VNT Tandem HEAT
+
+  - Konkurs-M ATGM
+
+BMP-1
+
+ - PG-15VNT Tandem HEAT
+
+ - 9M14P Malyutka-P, 9M14-2 Malyutka-2, 9M14-2M Malyutka-2M
+
+Marders
+
+ - Milan 2, Milan 3, Milan 3ER
+
+9K111 Emplacements
+
+ - 9M111M, 9M113, 9M113M Konkurs-M
+
+Tow Jeep, Tow Tripod
+
+ - TOW 2, TOW 2A
+
+SPG-9
+
+ - PG15VNT Tandem HEAT
+
 
   
