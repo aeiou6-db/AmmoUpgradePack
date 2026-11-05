@@ -1,6 +1,10 @@
+## This mod requires vanilla asset util
+
+https://github.com/thebeninator/VanillaAssetUtil/releases/latest
+
 Fairly self-explanatory
 
-As of V1.1B is compatible with
+As of V1.3.1 is compatible with
 
 M1A1 Abrams
 
@@ -37,6 +41,10 @@ T-64/T-72/T-80
 
 BMP-2
 
+  - 3UBR11
+
+  - 3UBR8
+
   - Konkurs-M ATGM
 
   - Kornet-M (PIL Kornet Compat)
@@ -69,5 +77,11 @@ SPG-9
 
  - PG15VNT Tandem HEAT
 
+T-54/T-55
 
+- M309 APFSDS
+
+- 3BM25 APFSDS
+
+- 3BK17M HEAT-FS
   
