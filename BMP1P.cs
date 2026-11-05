@@ -66,7 +66,7 @@ namespace AmmoUpgradePack
 
             GameObject vic_go = vic.gameObject;
 
-            if (vic.UniqueName != "BMP1P" && vic.UniqueName != "BMP1P_SA" ) return;
+            if (!vic.UniqueName.Contains("BMP1P")) return;
             MelonLogger.Msg("BMP-1P FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
@@ -78,7 +78,7 @@ namespace AmmoUpgradePack
             GHPC.Weapons.AmmoRack atgm_rack = launcher.Feed.ReadyRack;
             if (atgm.Value == true)
             {
-                AmmoType.AmmoClip konkursM = shellsPACT.clip_konkursM;
+                AmmoType.AmmoClip konkursM = ATGMPact.clip_konkursM;
                 atgm_rack._clipTypes[0] = konkursM;
                 atgm_rack.StoredClips = new List<AmmoType.AmmoClip>()
                 {
@@ -102,7 +102,7 @@ namespace AmmoUpgradePack
         }
         public static IEnumerator Convert(GameState _)
         {
-            foreach (Vehicle vic in Mod.vics)
+            foreach (Vehicle vic in AmmoUpgradeMod.vics)
             {
                 HandleConversion(vic);
             }

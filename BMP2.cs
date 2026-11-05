@@ -41,10 +41,18 @@ namespace AmmoUpgradePack
 {
     public class BMP2 : ModUtil.Module
     {
+        static MelonPreferences_Entry<bool> patch;
+        static MelonPreferences_Entry<string> ammo_ap;
         static MelonPreferences_Entry<bool> atgm;
 
         public static void Config(MelonPreferences_Category cfg)
         {
+            patch = cfg.CreateEntry<bool>("BMP-2 Patch", true);
+            patch.Comment = "////////////////////////////////";
+
+            ammo_ap = cfg.CreateEntry<string>("(BMP-2) AP Ammo", "3UBR8");
+            ammo_ap.Comment = "3UBR6 (Stock), 3UBR8, 3UBR11";
+
             atgm = cfg.CreateEntry<bool>("(BMP-2) Konkurs-M ATGM", true);
             atgm.Comment = "Tandem ATGM, becomes Kornet-M if PIL kornets are enabled";
         }
@@ -55,7 +63,6 @@ namespace AmmoUpgradePack
             GameObject vic_go = vic.gameObject;
 
             if (!vic.UniqueName.Contains("BMP2")) return;
-            if (atgm.Value == false) return;
             MelonLogger.Msg("BMP-2 FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
@@ -65,23 +72,36 @@ namespace AmmoUpgradePack
             WeaponSystem main_gun = main_gun_info.Weapon;
             WeaponSystem launcher = launcher_info.Weapon;
             GHPC.Weapons.AmmoRack atgm_rack = launcher.Feed.ReadyRack;
-            AmmoType.AmmoClip konkursM = shellsPACT.clip_konkursM;
-            AmmoType.AmmoClip kornet = shellsPACT.clip_9m133M;
+            AmmoType.AmmoClip konkursM = ATGMPact.clip_konkursM;
+            AmmoType.AmmoClip kornet = ATGMPact.clip_9m133M;
+            if (ammo_ap.Value == "3UBR8")
+            {
+                loadout_manager._loadedAmmoList.AmmoClips[0] = shellsPACT.clip_codex_3ubr8;
+            }
+            if (ammo_ap.Value == "3UBR11")
+            {
+                loadout_manager._loadedAmmoList.AmmoClips[0] = shellsPACT.clip_codex_3ubr11;
+            }
             if (launcher_info.Name == "Twin ATGM Launchers")
             {
-                MelonLogger.Msg("Kornets Detected: Applying Kornet-M");
-                atgm_rack.ClipTypes[0] = kornet;
-                atgm_rack.StoredClips = new List<AmmoType.AmmoClip>()
+                if (atgm.Value == true)
+                {
+                    MelonLogger.Msg("Kornets Detected: Applying Kornet-M");
+                    atgm_rack.ClipTypes[0] = kornet;
+                    atgm_rack.StoredClips = new List<AmmoType.AmmoClip>()
                 {
                     kornet,
                     kornet,
                 };
+                }
             }
             else
             {
-                MelonLogger.Msg("Standard BMP2: Applying Konkurs-M");
-                atgm_rack._clipTypes[0] = konkursM;
-                atgm_rack.StoredClips = new List<AmmoType.AmmoClip>()
+                if (atgm.Value == true)
+                {
+                    MelonLogger.Msg("Standard BMP2: Applying Konkurs-M");
+                    atgm_rack._clipTypes[0] = konkursM;
+                    atgm_rack.StoredClips = new List<AmmoType.AmmoClip>()
                 {
                     konkursM,
                     konkursM,
@@ -92,13 +112,18 @@ namespace AmmoUpgradePack
                     konkursM,
                     konkursM,
                 };
+                }
             }
+            loadout_manager.SpawnCurrentLoadout();
             launcher.Feed.AmmoTypeInBreech = null;
+            main_gun.Feed.AmmoTypeInBreech = null;
+            main_gun.Feed.Start();
             launcher.Feed.Start();
+            loadout_manager.RegisterAllBallistics();
         }
         public static IEnumerator Convert(GameState _)
         {
-            foreach (Vehicle vic in Mod.vics)
+            foreach (Vehicle vic in AmmoUpgradeMod.vics)
             {
                 HandleConversion(vic);
             }
@@ -108,6 +133,7 @@ namespace AmmoUpgradePack
 
         public static void Init()
         {
+            if (patch.Value == false) return;
             StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Convert), GameStatePriority.Medium);
         }
     }

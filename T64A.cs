@@ -1,4 +1,5 @@
 ﻿using AmmoUpgrade;
+using AmmoUpgrade;
 using GHPC.State;
 using GHPC.Vehicle;
 using GHPC.Weapons;
@@ -60,7 +61,7 @@ namespace AmmoUpgradePack
         }
         public static IEnumerator Convert(GameState _)
         {
-            foreach (Vehicle vic in Mod.vics)
+            foreach (Vehicle vic in AmmoUpgradeMod.vics)
             {
                 HandleConversion(vic);
             }

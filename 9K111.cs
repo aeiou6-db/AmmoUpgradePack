@@ -42,15 +42,15 @@ namespace AmmoUpgradePack
             string ammo_str = atgm.Value;
             if (ammo_str == "9M113M")
             {
-                missile = shellsPACT.clip_konkursM;
+                missile = ATGMPact.clip_konkursM;
             }
             if (ammo_str == "9M113")
             {
-                missile = shellsPACT.clip_konkurs;
+                missile = ATGMPact.clip_konkurs;
             }
             if (ammo_str == "9M111M")
             {
-                missile = shellsPACT.clip_9M111M;
+                missile = ATGMPact.clip_9M111M;
             }
             if (ammo_str == "9M111")
             {
@@ -67,7 +67,7 @@ namespace AmmoUpgradePack
         }
         public static IEnumerator Convert(GameState _)
         {
-            foreach (Vehicle vic in Mod.vics)
+            foreach (Vehicle vic in AmmoUpgradeMod.vics)
             {
                 HandleConversion(vic);
             }
@@ -77,7 +77,7 @@ namespace AmmoUpgradePack
 
         public static void Init()
         {
-            StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
+            StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
         }
     }
 }

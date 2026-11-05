@@ -50,7 +50,7 @@ namespace AmmoUpgradePack
         }
         public static IEnumerator Convert(GameState _)
         {
-            foreach (Vehicle vic in Mod.vics)
+            foreach (Vehicle vic in AmmoUpgradeMod.vics)
             {
                 HandleConversion(vic);
             }
@@ -60,7 +60,7 @@ namespace AmmoUpgradePack
 
         public static void Init()
         {
-            StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
+            StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
         }
     }
 }

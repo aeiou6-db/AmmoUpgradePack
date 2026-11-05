@@ -19,12 +19,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-[assembly: MelonInfo(typeof(Mod), "Ammo Upgrade Pack", "1.2.1", "Aeiou6")]
+[assembly: MelonInfo(typeof(AmmoUpgradeMod), "Ammo Upgrade Pack", "1.3.1", "Aeiou6")]
 [assembly: MelonGame("Radian Simulations LLC", "GHPC")]
 
 namespace AmmoUpgrade
 { 
-    public class Mod : MelonMod
+    public class AmmoUpgradeMod : MelonMod
     {
         private static ModuleManager module_manager;
         internal static Vehicle[] vics;
@@ -40,12 +40,8 @@ namespace AmmoUpgrade
 
         public IEnumerator OnPlayerReady(GameState _)
         {
-            game_manager = GameObject.Find("_APP_GHPC_");
-            audio_settings_manager = game_manager.GetComponent<AudioSettingsManager>();
-            player_manager = game_manager.GetComponent<PlayerInput>();
-            camera_manager = game_manager.GetComponent<CameraManager>();
             vics = GameObject.FindObjectsByType<Vehicle>(FindObjectsSortMode.None);
-
+            game_manager = GameObject.Find("_APP_GHPC_");
             module_manager.LoadAllDynamicAssets();
             yield break;
         }
@@ -57,6 +53,8 @@ namespace AmmoUpgrade
             Leo1.Config(cfg);
             M1.Config(cfg);
             M60.Config(cfg);
+            T54A.Config(cfg);
+            T55A.Config(cfg);
             T62.Config(cfg);
             T72.Config(cfg);
             T80.Config(cfg);
@@ -74,6 +72,8 @@ namespace AmmoUpgrade
             module_manager.Add("SharedAssets", new SharedAssets());
             module_manager.Add("ShellsNATO", new shellsNATO());
             module_manager.Add("ShellsPACT", new shellsPACT());
+            module_manager.Add("ATGMNato", new ATGMNato());
+            module_manager.Add("ATGMPact", new ATGMPact());
             module_manager.Add("Leo2", new Leo2());
             module_manager.Add("Leo2A4Compat", new Leo2a4());
             module_manager.Add("Leo1", new Leo1());
@@ -82,6 +82,8 @@ namespace AmmoUpgrade
             module_manager.Add("T62", new T62());
             module_manager.Add("T72", new T72());
             module_manager.Add("T80", new T80());
+            module_manager.Add("T54A", new T54A());
+            module_manager.Add("T55A", new T55A());
             module_manager.Add("T64A", new T64A());
             module_manager.Add("T64B", new T64B());
             module_manager.Add("BMP1", new BMP1());
@@ -119,11 +121,16 @@ namespace AmmoUpgrade
                 StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(OnPlayerReady), GameStatePriority.Medium);
                 StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(shellsPACT.TandemOptimization), GameStatePriority.Lowest);
                 StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(shellsNATO.TandemOptimization), GameStatePriority.Lowest);
+                StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(ATGMPact.TandemOptimization), GameStatePriority.Lowest);
+                StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(ATGMNato.TandemOptimization), GameStatePriority.Lowest);
+                Leo2.Init();
                 Leo2.Init();
                 Leo2a4.Init();
                 Leo1.Init();
                 M1.Init();
                 M60.Init();
+                T54A.Init();
+                T55A.Init();
                 T62.Init();
                 T72.Init();
                 T80.Init();

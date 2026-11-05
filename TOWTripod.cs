@@ -43,15 +43,15 @@ namespace AmmoUpgradePack
             string ammo_str = atgm.Value;
             if (ammo_str == "ITOW")
             {
-                missile = shellsNATO.clip_itow;
+                missile = ATGMNato.clip_itow;
             }
             if (ammo_str == "TOW2")
             {
-                missile = shellsNATO.clip_tow2;
+                missile = ATGMNato.clip_tow2;
             }
             if (ammo_str == "TOW2A")
             {
-                missile = shellsNATO.clip_tow2a;
+                missile = ATGMNato.clip_tow2a;
             }
             MelonLogger.Msg("ATGM FOUND");
             cannonrack._clipTypes[0] = missile;
@@ -64,7 +64,7 @@ namespace AmmoUpgradePack
         }
         public static IEnumerator Convert(GameState _)
         {
-            foreach (Vehicle vic in Mod.vics)
+            foreach (Vehicle vic in AmmoUpgradeMod.vics)
             {
                 HandleConversion(vic);
             }
@@ -74,7 +74,7 @@ namespace AmmoUpgradePack
 
         public static void Init()
         {
-            StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
+            StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
         }
     }
 }

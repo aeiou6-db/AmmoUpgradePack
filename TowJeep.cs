@@ -18,49 +18,56 @@ namespace AmmoUpgradePack
     public class TOWJeep : ModUtil.Module
     {
         static MelonPreferences_Entry<string> atgm;
-        private static AmmoClipCodexScriptable missile;
+
 
         public static void Config(MelonPreferences_Category cfg)
         {
             atgm = cfg.CreateEntry<string>("(TOW Jeep) ATGM Ammo", "TOW2");
-            atgm.Comment = "ITOW (STOCK), TOW2, TOW2A (Tandem)"; 
+            atgm.Comment = "ITOW (STOCK), TOW2, TOW2A (Tandem)";
         }
         private static void HandleConversion(Vehicle vic)
         {
             if (vic == null) return;
 
             GameObject vic_go = vic.gameObject;
-
             if (vic.UniqueName != "M151M232") return;
             if (atgm.Value == "ITOW") return;
             MelonLogger.Msg("TOW Jeep FOUND");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
+            MelonLogger.Msg("TOW Jeep WeaponsManager");
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
-            MelonLogger.Msg("WEAPONS MANAGER FOUND");
+            MelonLogger.Msg("TOW Jeep LoadoutManager");
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
+            MelonLogger.Msg("TOW Jeep Main Gun Info");
             WeaponSystem main_gun = main_gun_info.Weapon;
-            MelonLogger.Msg("LAUNCHER FOUND");
-            GHPC.Weapons.AmmoRack cannonrack = main_gun.Feed.ReadyRack;
-            MelonLogger.Msg("READY RACK FOUND");
-            string ammo_str = atgm.Value;
-            if (ammo_str == "TOW2")
+            MelonLogger.Msg("TOW Jeep Main Gun");
+            if (atgm.Value == "TOW2")
             {
-                missile = shellsNATO.clip_codex_tow2 ;
+                MelonLogger.Msg("TOW 2 SET");
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = ATGMNato.clip_codex_tow2;
             }
-            if (ammo_str == "TOW2A")
+            if (atgm.Value == "TOW2A")
             {
-                missile = shellsNATO.clip_codex_tow2a;
+                MelonLogger.Msg("TOW 2A SET");
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = ATGMNato.clip_codex_tow2a;
             }
-            MelonLogger.Msg("ATGM FOUND");
-            loadout_manager.LoadedAmmoList.AmmoClips[0] = missile;
+            MelonLogger.Msg("COMPLETED, EMPTYING RACKS");
+            for (int i = 0; i < loadout_manager.RackLoadouts.Length; i++)
+            {
+                GHPC.Weapons.AmmoRack rack = loadout_manager.RackLoadouts[i].Rack;
+                Util.EmptyRack(rack);
+            }
+            MelonLogger.Msg("RACKS EMPTIED");
             main_gun.Feed.AmmoTypeInBreech = null;
+            MelonLogger.Msg("BREACH EMPTIED");
             loadout_manager.SpawnCurrentLoadout();
+            MelonLogger.Msg("LOADOUT SPAWNED");
             main_gun.Feed.Start();
-            loadout_manager.RegisterAllBallistics();
+            MelonLogger.Msg("CONVERSION COMPLETED");
         }
         public static IEnumerator Convert(GameState _)
         {
-            foreach (Vehicle vic in Mod.vics)
+            foreach (Vehicle vic in AmmoUpgradeMod.vics)
             {
                 HandleConversion(vic);
             }
@@ -70,7 +77,7 @@ namespace AmmoUpgradePack
 
         public static void Init()
         {
-            StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
+            StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Convert), GameStatePriority.Low);
         }
     }
 }

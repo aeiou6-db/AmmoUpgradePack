@@ -82,7 +82,7 @@ namespace AmmoUpgradePack
             }
             if (ammo_str == "Milan-2")
             {
-                AmmoType.AmmoClip missile = shellsNATO.clip_milan2;
+                AmmoType.AmmoClip missile = ATGMNato.clip_milan2;
                 atgm_rack._clipTypes[0] = missile;
                 atgm_rack.StoredClips = new List<AmmoType.AmmoClip>()
                 {
@@ -94,7 +94,7 @@ namespace AmmoUpgradePack
             }
             if (ammo_str == "Milan-3")
             {
-                AmmoType.AmmoClip missile = shellsNATO.clip_milan3;
+                AmmoType.AmmoClip missile = ATGMNato.clip_milan3;
                 atgm_rack._clipTypes[0] = missile;
                 atgm_rack.StoredClips = new List<AmmoType.AmmoClip>()
                 {
@@ -106,7 +106,7 @@ namespace AmmoUpgradePack
             }
             if (ammo_str == "Milan-3ER")
             {
-                AmmoType.AmmoClip missile = shellsNATO.clip_milan3ER;
+                AmmoType.AmmoClip missile = ATGMNato.clip_milan3ER;
                 atgm_rack._clipTypes[0] = missile;
                 atgm_rack.StoredClips = new List<AmmoType.AmmoClip>()
                 {
@@ -121,7 +121,7 @@ namespace AmmoUpgradePack
         }
         public static IEnumerator Convert(GameState _)
         {
-            foreach (Vehicle vic in Mod.vics)
+            foreach (Vehicle vic in AmmoUpgradeMod.vics)
             {
                 HandleConversion(vic);
             }
