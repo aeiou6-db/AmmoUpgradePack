@@ -1,4 +1,4 @@
-## This mod requires vanilla asset util
+## This mod requires vanilla asset util for versions V1.3.1 and above
 
 https://github.com/thebeninator/VanillaAssetUtil/releases/latest
 
