@@ -12,7 +12,7 @@ PIL
 
 Fulda89
 
-***ammo includes:***
+# **LIST OF AMMO:**
 
 
 ## LEOPARD 2s
