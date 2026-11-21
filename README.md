@@ -4,19 +4,23 @@ Download Vanilla Asset Util [Here](https://github.com/thebeninator/VanillaAssetU
 
 Fairly self-explanatory
 
-As of V1.4 is compatible with
+As of V1.4 is compatible with:
 
-M1A1 Abrams
+ - M1A1 Abrams
 
-PIL
+- Pact Increased Lethality
 
-Fulda89
+- Fulda Expansion Pack
+
+
 
 # **LIST OF AMMO:**
 
 
 ## LEOPARD 2s
 - DM33, DM53 (Anti-Era) , DM63 (Anti-Era, Insensitive)
+
+- This includes the Leopard 2A4s from Fulda Expansion Pack
  
 
 ## M1/M1IP
@@ -51,9 +55,9 @@ HEAT:
 
 ## BMP-2
 
-  - 3UBR11
+  - 3UBR11 APFSDS
 
-  - 3UBR8
+  - 3UBR8 APDS-T
 
   - Konkurs-M ATGM
 
