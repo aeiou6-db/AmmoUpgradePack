@@ -1,7 +1,12 @@
 ﻿using AmmoUpgrade;
+using GHPC;
+using GHPC.Crew;
+using GHPC.Effects;
 using GHPC.State;
+using GHPC.Utility;
 using GHPC.Vehicle;
 using GHPC.Weapons;
+using Harmony;
 using MelonLoader;
 using ModUtil;
 using System.Collections;
@@ -14,7 +19,8 @@ namespace AmmoUpgradePack
         private static void HandleConversion(Vehicle vic)
         {
             if (vic == null) return;
-            if (vic.FriendlyName != "Leopard 2A4 (1988)") return; // this vehicle is such a pain in the ass for no reason
+            if (vic.FriendlyName != "Leopard 2A4 (1988)"
+                && vic.FriendlyName != "Leopard 2A4 (1986)") return; // this vehicle is such a pain in the ass for no reason
             MelonLogger.Msg("LEO2A4 VIC IS NOT NULL");
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             MelonLogger.Msg("LEO2A4 HAS A WEAPON MANAGER");
@@ -27,6 +33,31 @@ namespace AmmoUpgradePack
             MelonLogger.Msg("LEO2A4 FOUND");
 
             string ammostr = Leo2.ammo_ap.Value;
+            if (ammostr == "DM63")
+            {
+                loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_dm63;
+                FlammablesManager firemanager = vic.GetComponent<FlammablesManager>();
+                MelonLogger.Msg("LEO2A4 HAS A FIRE MANAGER");
+                FlammablesCluster HullCluster = firemanager.Compartments[0].Clusters[1];
+                MelonLogger.Msg("LEO2A4 HAS A FIRE CLUSTER");
+                CrewManager crew = vic.GetComponent<CrewManager>();
+                // hull rack //
+                HullCluster.ExplosionProximityFactor = 0f;
+                HullCluster.MaxTempC = 1000f;
+                HullCluster.TempGrowCoeff = 0.05f;
+                HullCluster.FireProximityFactor = 0f;
+                HullCluster._fireInsulationFactor = 0.8f;
+                HullCluster.Name = "Leo2 Insensitive Spare Hull Rack";
+                // Turret Rack //
+                FlammablesCluster TurretCluster = firemanager.Compartments[3].Clusters[1];
+                TurretCluster.ExplosionProximityFactor = 0f;
+                TurretCluster.MaxTempC = 1000f;
+                TurretCluster.TempGrowCoeff = 0.05f;
+                TurretCluster.FireProximityFactor = 0f;
+                TurretCluster._fireInsulationFactor = 0.8f;
+                TurretCluster.Name = "Leo2 Insensitive Ready Rack";
+                //
+            }
             if (ammostr == "DM53")
             {
                 loadout_manager.LoadedAmmoList.AmmoClips[0] = shellsNATO.clip_codex_dm53;

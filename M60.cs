@@ -67,14 +67,19 @@ namespace AmmoUpgradePack
             if (vic.UniqueName != "M60A1AOS"
                 && vic.UniqueName != "M60A3TTS"
                 && vic.UniqueName != "M60A1"
-                && vic.UniqueName != "M60A1RISEP")
+                && vic.UniqueName != "M60A1RISEP"
+                && vic.UniqueName != "M60A3TTS_ERA"
+                && vic.UniqueName != "M60A3RISEP_ERA")
                 return;
             WeaponsManager weapons_manager = vic.GetComponent<WeaponsManager>();
             LoadoutManager loadout_manager = vic.GetComponent<LoadoutManager>();
             WeaponSystemInfo main_gun_info = weapons_manager.Weapons[0];
             WeaponSystem main_gun = main_gun_info.Weapon;
             if (vic.UniqueName == "M60A1RISEP"
-                || vic.UniqueName == "M60A3TTS")
+                || vic.UniqueName == "M60A3TTS"
+                || vic.UniqueName == "M60A3TTS_ERA"
+                || vic.UniqueName == "M60A1RISEP_ERA"
+                )
             {
                 if (M900Late.Value == true)
                 {

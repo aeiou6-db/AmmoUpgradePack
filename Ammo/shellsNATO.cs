@@ -27,6 +27,13 @@ namespace AmmoUpgradePack
         public static AmmoType ammo_dm53;
         public static GameObject ammo_dm53_vis = null;
 
+        public static AmmoClipCodexScriptable clip_codex_dm63;
+        public static AmmoType.AmmoClip clip_dm63;
+        public static AmmoCodexScriptable ammo_codex_dm63;
+        public static AmmoType ammo_dm63;
+        public static GameObject ammo_dm63_vis = null;
+
+
         public static AmmoClipCodexScriptable clip_codex_m900;
         public static AmmoType.AmmoClip clip_m900;
         public static AmmoCodexScriptable ammo_codex_m900;
@@ -77,6 +84,26 @@ namespace AmmoUpgradePack
                 o.name.Contains("Kontakt-5") ||
                 o.name.Contains("Relikt")
                 ).ToArray();
+
+            ArmorCodexScriptable[] composites = armor_codices.Where(
+                o =>
+                o.name.Contains("C-Tech composite") ||
+                o.name.Contains("Vorschlaghammer composite") ||
+                o.name.Contains("Eber composite") ||
+                o.name.Contains("Abrams special armor gen 1 hull front") ||
+                o.name.Contains("Abrams special armor gen 1 mantlet") ||
+                o.name.Contains("Abrams special armor gen 1 turret cheeks") ||
+                o.name.Contains("Abrams special armor gen 1 turret sides") ||
+                o.name.Contains("Abrams special armor gen 0 turret cheeks") ||
+                o.name.Contains("Corundum ball armor") ||
+                o.name.Contains("ru metal polymer") ||
+                o.name.Contains("t80u ru composite") ||
+                o.name.Contains("ru composite") ||
+                o.name.Contains("B tech") ||
+                o.name.Contains("Abrams DU composite") ||
+                o.name.Contains("Kvartz")
+                ).ToArray();
+
             ///
             List<AmmoType.ArmorOptimization> tandem = new List<AmmoType.ArmorOptimization>();
 
@@ -87,14 +114,76 @@ namespace AmmoUpgradePack
 
             foreach (ArmorCodexScriptable natocodex in natoERA)
             {
-                tandem.Add(Util.CreateArmourOptimization(natocodex, 0.1f));
+                tandem.Add(Util.CreateArmourOptimization(natocodex, 0.25f));
             }
 
             foreach (ArmorCodexScriptable heavycodex in RUHeavy)
             {
-                tandem.Add(Util.CreateArmourOptimization(heavycodex, 0.2f));
+                tandem.Add(Util.CreateArmourOptimization(heavycodex, 0.4f));
+            }
+            ///
+            List<AmmoType.ArmorOptimization> supertandem = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable lightcodex in lightERA)
+            {
+                supertandem.Add(Util.CreateArmourOptimization(lightcodex, 0.01f));
             }
 
+            foreach (ArmorCodexScriptable natocodex in natoERA)
+            {
+                supertandem.Add(Util.CreateArmourOptimization(natocodex, 0.1f));
+            }
+
+            foreach (ArmorCodexScriptable heavycodex in RUHeavy)
+            {
+                supertandem.Add(Util.CreateArmourOptimization(heavycodex, 0.15f));
+            }
+
+            // for shitty tandem rounds
+            List<AmmoType.ArmorOptimization> shittytandem = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable lightcodex in lightERA)
+            {
+                shittytandem.Add(Util.CreateArmourOptimization(lightcodex, 0.1f));
+            }
+
+            foreach (ArmorCodexScriptable natocodex in natoERA)
+            {
+                shittytandem.Add(Util.CreateArmourOptimization(natocodex, 0.4f));
+            }
+
+            foreach (ArmorCodexScriptable heavycodex in RUHeavy)
+            {
+                shittytandem.Add(Util.CreateArmourOptimization(heavycodex, 0.6f));
+            }
+            //// composite optimization //
+            List<AmmoType.ArmorOptimization> anticomp0 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable compcodex in composites)
+            {
+                anticomp0.Add(Util.CreateArmourOptimization(compcodex, 0.85f));
+            }
+            List<AmmoType.ArmorOptimization> anticomp1 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable compcodex in composites)
+            {
+                anticomp1.Add(Util.CreateArmourOptimization(compcodex, 0.75f));
+            }
+            ///
+            List<AmmoType.ArmorOptimization> anticomp2 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable compcodex in composites)
+            {
+                anticomp2.Add(Util.CreateArmourOptimization(compcodex, 0.6f));
+            }
+            ///
+            List<AmmoType.ArmorOptimization> anticomp3 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable compcodex in composites)
+            {
+                anticomp3.Add(Util.CreateArmourOptimization(compcodex, 0.5f));
+            }
+            ///
             List<AmmoType.ArmorOptimization> EraTip = new List<AmmoType.ArmorOptimization>();
 
             foreach (ArmorCodexScriptable lightcodex in lightERA)
@@ -111,11 +200,16 @@ namespace AmmoUpgradePack
             {
                 EraTip.Add(Util.CreateArmourOptimization(heavycodex, 0.32f));
             }
-            ///
+            //////////////////////////////
+
 
 
             // example.ArmorOptimizations = tandem.ToArray();
+
+            ammo_dm33.ArmorOptimizations = anticomp1.ToArray();
             ammo_dm53.ArmorOptimizations = EraTip.ToArray();
+            ammo_dm63.ArmorOptimizations = EraTip.ToArray();
+            ammo_dm105_63.ArmorOptimizations = anticomp2.ToArray();
             yield break;
         }
         public override void LoadDynamicAssets()
@@ -130,8 +224,10 @@ namespace AmmoUpgradePack
             ammo_dm33.Name = "DM33 APFSDS-T";
             ammo_dm33.RhaPenetration = 610;
             ammo_dm33.Caliber = 120;
-            ammo_dm33.MuzzleVelocity = 1680;
+            ammo_dm33.Coeff = 0.24f;
+            ammo_dm33.MuzzleVelocity = 1650;
             ammo_dm33.SpallMultiplier = 2f;
+            ammo_dm33.Mass = 4.38f;
             ammo_dm33.MaxSpallRha = 30;
             ammo_dm33.MinSpallRha = 8;
 
@@ -156,14 +252,15 @@ namespace AmmoUpgradePack
             ammo_dm33.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_dm33;
 
             ///////////////////////////////////////////////////////////////////////////////////////////////
-
+            
             ammo_dm53 = new AmmoType();
             Util.ShallowCopy(ammo_dm53, SharedAssets.ammo_dm120);
             ammo_dm53.Name = "DM53 APFSDS-T";
-            ammo_dm53.RhaPenetration = 780;
+            ammo_dm53.RhaPenetration = 740;
             ammo_dm53.Caliber = 120;
-            ammo_dm53.MuzzleVelocity = 1670;
-            ammo_dm53.Mass = 8.35f;
+            ammo_dm53.MuzzleVelocity = 1650;
+            ammo_dm53.Mass = 5.01f;
+            ammo_dm53.Coeff = 0.185f;
             ammo_dm53.MaxSpallRha = 30;
             ammo_dm53.MinSpallRha = 8;
 
@@ -186,6 +283,39 @@ namespace AmmoUpgradePack
             ammo_dm53.VisualModel = ammo_dm53_vis;
             ammo_dm53.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_dm53;
             ammo_dm53.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_dm53;
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+
+            ammo_dm63 = new AmmoType();
+            Util.ShallowCopy(ammo_dm63, SharedAssets.ammo_dm120);
+            ammo_dm63.Name = "DM63 APFSDS-T";
+            ammo_dm63.RhaPenetration = 740;
+            ammo_dm63.Caliber = 120;
+            ammo_dm63.Coeff = 0.185f;
+            ammo_dm63.MuzzleVelocity = 1650;
+            ammo_dm63.Mass = 5.01f;
+            ammo_dm63.MaxSpallRha = 30;
+            ammo_dm63.MinSpallRha = 8;
+
+            Util.Coalesce(ref ammo_codex_dm63);
+            ammo_codex_dm63.AmmoType = ammo_dm63;
+            ammo_codex_dm63.name = "ammo_dm63(120)";
+
+            clip_dm63 = new AmmoType.AmmoClip();
+            clip_dm63.Capacity = 1;
+            clip_dm63.Name = "DM63 APFSDS-T";
+            clip_dm63.MinimalPattern = new AmmoCodexScriptable[1];
+            clip_dm63.MinimalPattern[0] = ammo_codex_dm63;
+
+            Util.Coalesce(ref clip_codex_dm63);
+            clip_codex_dm63.name = "clip_dm63(120)";
+            clip_codex_dm63.ClipType = clip_dm63;
+
+            ammo_dm63_vis = GameObject.Instantiate(SharedAssets.ammo_dm120.VisualModel);
+            ammo_dm63_vis.name = "dm63 visual";
+            ammo_dm63.VisualModel = ammo_dm63_vis;
+            ammo_dm63.VisualModel.GetComponent<AmmoStoredVisual>().AmmoType = ammo_dm63;
+            ammo_dm63.VisualModel.GetComponent<AmmoStoredVisual>().AmmoScriptable = ammo_codex_dm63;
+            ///////////////////////////////////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////////////////////////////////
             ///105 US Shells
             ///////////////////////////////////////////////////////////////////////////////////////////////

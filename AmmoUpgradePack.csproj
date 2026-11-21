@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Ammo\ATGMPact.cs" />
     <Compile Include="Ammo\ATGMNato.cs" />
+    <Compile Include="Ammo\Shells125.cs" />
     <Compile Include="T54A.cs" />
     <Compile Include="T55A.cs" />
     <Compile Include="TowJeep.cs" />
@@ -129,5 +130,6 @@
     <Compile Include="T80.cs" />
     <Compile Include="T72.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -19,7 +19,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-[assembly: MelonInfo(typeof(AmmoUpgradeMod), "Ammo Upgrade Pack", "1.3.1", "Aeiou6")]
+[assembly: MelonInfo(typeof(AmmoUpgradeMod), "Ammo Upgrade Pack", "1.4", "Aeiou6")]
 [assembly: MelonGame("Radian Simulations LLC", "GHPC")]
 
 namespace AmmoUpgrade
@@ -70,6 +70,7 @@ namespace AmmoUpgrade
             SPG9.Config(cfg);
 
             module_manager.Add("SharedAssets", new SharedAssets());
+            module_manager.Add("Shells125", new Shells125());
             module_manager.Add("ShellsNATO", new shellsNATO());
             module_manager.Add("ShellsPACT", new shellsPACT());
             module_manager.Add("ATGMNato", new ATGMNato());
@@ -119,6 +120,7 @@ namespace AmmoUpgrade
             {
                 StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(AssetUtil.ReleaseTempVanillaAssetsDeferred), GameStatePriority.Medium);
                 StateController.RunOrDefer(GameState.PlayerReady, new GameStateEventHandler(OnPlayerReady), GameStatePriority.Medium);
+                StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(Shells125.TandemOptimization), GameStatePriority.Lowest);
                 StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(shellsPACT.TandemOptimization), GameStatePriority.Lowest);
                 StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(shellsNATO.TandemOptimization), GameStatePriority.Lowest);
                 StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(ATGMPact.TandemOptimization), GameStatePriority.Lowest);

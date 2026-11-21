@@ -20,6 +20,8 @@ namespace AmmoUpgradePack
         internal static AmmoType ammo_3bk18m;
 
         internal static AmmoType ammo_3bk5m;
+
+        internal static AmmoType ammo_3of26;
         internal static AmmoClipCodexScriptable codex_dm105;
         internal static AmmoClipCodexScriptable codex_m833;
         internal static AmmoType ammo_m833;
@@ -73,6 +75,7 @@ namespace AmmoUpgradePack
             ammo_konkurs = codex_scriptables.Where(o => o.name == "ammo_9M113").FirstOrDefault().AmmoType;
             ammo_fagot = codex_scriptables.Where(o => o.name == "ammo_9M111").FirstOrDefault().AmmoType;
             ammo_malyutka = codex_scriptables.Where(o => o.name == "ammo_9M14M").FirstOrDefault().AmmoType;
+            ammo_3of26 = codex_scriptables.Where(o => o.name == "ammo_3OF26").FirstOrDefault().AmmoType;
             ammo_pg15 = codex_scriptables.Where(o => o.name == "ammo_PG15VS").FirstOrDefault().AmmoType;
             ammo_itow = codex_scriptables.Where(o => o.name == "ammo_I-TOW").FirstOrDefault().AmmoType;
             ammo_milan = codex_scriptables.Where(o => o.name == "ammo_MILAN").FirstOrDefault().AmmoType;

@@ -89,6 +89,26 @@ namespace AmmoUpgradePack
                 o.name.Contains("Kontakt-5") ||
                 o.name.Contains("Relikt")
                 ).ToArray();
+
+            ArmorCodexScriptable[] composites = armor_codices.Where(
+                o =>
+                o.name.Contains("C-Tech composite") ||
+                o.name.Contains("Vorschlaghammer composite") ||
+                o.name.Contains("Eber composite") ||
+                o.name.Contains("Abrams special armor gen 1 hull front") ||
+                o.name.Contains("Abrams special armor gen 1 mantlet") ||
+                o.name.Contains("Abrams special armor gen 1 turret cheeks") ||
+                o.name.Contains("Abrams special armor gen 1 turret sides") ||
+                o.name.Contains("Abrams special armor gen 0 turret cheeks") ||
+                o.name.Contains("Corundum ball armor") ||
+                o.name.Contains("ru metal polymer") ||
+                o.name.Contains("t80u ru composite") ||
+                o.name.Contains("ru composite") ||
+                o.name.Contains("B tech") ||
+                o.name.Contains("Abrams DU composite") ||
+                o.name.Contains("Kvartz")
+                ).ToArray();
+
             ///
             List<AmmoType.ArmorOptimization> tandem = new List<AmmoType.ArmorOptimization>();
 
@@ -99,12 +119,29 @@ namespace AmmoUpgradePack
 
             foreach (ArmorCodexScriptable natocodex in natoERA)
             {
-                tandem.Add(Util.CreateArmourOptimization(natocodex, 0.1f));
+                tandem.Add(Util.CreateArmourOptimization(natocodex, 0.25f));
             }
 
             foreach (ArmorCodexScriptable heavycodex in RUHeavy)
             {
-                tandem.Add(Util.CreateArmourOptimization(heavycodex, 0.2f));
+                tandem.Add(Util.CreateArmourOptimization(heavycodex, 0.4f));
+            }
+            ///
+            List<AmmoType.ArmorOptimization> supertandem = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable lightcodex in lightERA)
+            {
+                supertandem.Add(Util.CreateArmourOptimization(lightcodex, 0.01f));
+            }
+
+            foreach (ArmorCodexScriptable natocodex in natoERA)
+            {
+                supertandem.Add(Util.CreateArmourOptimization(natocodex, 0.1f));
+            }
+
+            foreach (ArmorCodexScriptable heavycodex in RUHeavy)
+            {
+                supertandem.Add(Util.CreateArmourOptimization(heavycodex, 0.15f));
             }
 
             // for shitty tandem rounds
@@ -117,17 +154,43 @@ namespace AmmoUpgradePack
 
             foreach (ArmorCodexScriptable natocodex in natoERA)
             {
-                shittytandem.Add(Util.CreateArmourOptimization(natocodex, 0.2f));
+                shittytandem.Add(Util.CreateArmourOptimization(natocodex, 0.4f));
             }
 
             foreach (ArmorCodexScriptable heavycodex in RUHeavy)
             {
-                shittytandem.Add(Util.CreateArmourOptimization(heavycodex, 0.4f));
+                shittytandem.Add(Util.CreateArmourOptimization(heavycodex, 0.6f));
+            }
+            //// composite optimization //
+            List<AmmoType.ArmorOptimization> anticomp0 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable compcodex in composites)
+            {
+                anticomp0.Add(Util.CreateArmourOptimization(compcodex, 0.85f));
+            }
+            List<AmmoType.ArmorOptimization> anticomp1 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable compcodex in composites)
+            {
+                anticomp1.Add(Util.CreateArmourOptimization(compcodex, 0.8f));
+            }
+            ///
+            List<AmmoType.ArmorOptimization> anticomp2 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable compcodex in composites)
+            {
+                anticomp2.Add(Util.CreateArmourOptimization(compcodex, 0.6f));
+            }
+            ///
+            List<AmmoType.ArmorOptimization> anticomp3 = new List<AmmoType.ArmorOptimization>();
+
+            foreach (ArmorCodexScriptable compcodex in composites)
+            {
+                anticomp3.Add(Util.CreateArmourOptimization(compcodex, 0.5f));
             }
             ///
             ammo_konkursM.ArmorOptimizations = tandem.ToArray();
             ammo_9m133M.ArmorOptimizations = tandem.ToArray();
-
             ammo_9M142M.ArmorOptimizations = shittytandem.ToArray();
             yield break;
         }
