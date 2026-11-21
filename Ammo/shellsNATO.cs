@@ -327,6 +327,7 @@ namespace AmmoUpgradePack
             ammo_m900.MuzzleVelocity = 1505;
             ammo_m900.Mass = 6.86f;
             ammo_m900.SpallMultiplier = 1f;
+            ammo_m900.Coeff = 0.21f;
 
             Util.Coalesce(ref ammo_codex_m900);
             ammo_codex_m900.AmmoType = ammo_m900;
@@ -355,7 +356,7 @@ namespace AmmoUpgradePack
             ammo_dm105_33.Name = "DM33 APFSDS-T";
             ammo_dm105_33.RhaPenetration = 435;
             ammo_dm105_33.Caliber = 105;
-            ammo_dm105_33.MuzzleVelocity = 1450;
+            ammo_dm105_33.MuzzleVelocity = 1455;
             ammo_dm105_33.Mass = 4.1f;
             ammo_dm105_33.MaxSpallRha = 20;
             ammo_dm105_33.MinSpallRha = 2;

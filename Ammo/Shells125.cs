@@ -147,6 +147,7 @@ namespace AmmoUpgradePack
             Util.ShallowCopy(ammo_3bm46, SharedAssets.ammo_3bm32);
             ammo_3bm46.Name = "3BM46 APFSDS-T";
             ammo_3bm46.Caliber = 125;
+            ammo_3bm46.Coeff = 0.145f;
             ammo_3bm46.RhaPenetration = 660f;
             ammo_3bm46.Mass = 4.85f;
             ammo_3bm46.MuzzleVelocity = 1700f;
@@ -181,6 +182,7 @@ namespace AmmoUpgradePack
             ammo_3bm59.RhaPenetration = 800f;
             ammo_3bm59.Mass = 4.53f;
             ammo_3bm59.MuzzleVelocity = 1610f;
+            ammo_3bm59.Coeff = 0.152f;
             ammo_3bm59.SpallMultiplier = 1.8f;
             ammo_3bm59.MaxSpallRha = 30f;
             ammo_3bm59.MinSpallRha = 6f;
@@ -214,6 +216,7 @@ namespace AmmoUpgradePack
             ammo_3bm60.MuzzleVelocity = 1660f;
             ammo_3bm60.SpallMultiplier = 1.25f;
             ammo_3bm60.MaxSpallRha = 24f;
+            ammo_3bm60.Coeff = 0.152f;
             ammo_3bm60.MinSpallRha = 6f;
 
             Util.Coalesce(ref ammo_codex_3bm60);
